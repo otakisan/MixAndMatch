@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="combinationListTableViewCell" rowHeight="132" id="KGk-i7-Jjw" customClass="CombinationListTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Combination Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Z5-le-TpS">
+                        <rect key="frame" x="134" y="8" width="178" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4sm-rw-chd">
+                        <rect key="frame" x="8" y="37" width="304" height="87"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="g3D-ZH-VBK">
+                            <size key="itemSize" width="80" height="80"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016年12月28日木曜日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOi-n7-ZUZ">
+                        <rect key="frame" x="8" y="8" width="118" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="P90-Fp-fFY"/>
+                            <constraint firstAttribute="width" constant="118" id="vKT-yP-iyH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="top" secondItem="lOi-n7-ZUZ" secondAttribute="bottom" constant="8" symbolic="YES" id="01r-Ji-XLb"/>
+                    <constraint firstItem="lOi-n7-ZUZ" firstAttribute="leading" secondItem="4sm-rw-chd" secondAttribute="leading" id="2UA-EF-mNf"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="trailing" secondItem="8Z5-le-TpS" secondAttribute="trailing" id="4ca-AD-ll2"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="BpE-O6-rCN"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="CRI-us-Gj4"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="top" secondItem="8Z5-le-TpS" secondAttribute="bottom" constant="8" symbolic="YES" id="DKQ-oA-Gpa"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="top" secondItem="lOi-n7-ZUZ" secondAttribute="top" id="EAF-st-ffo"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="leading" secondItem="lOi-n7-ZUZ" secondAttribute="trailing" constant="8" symbolic="YES" id="HjQ-3e-S2N"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4sm-rw-chd" secondAttribute="bottom" constant="-0.5" id="q8X-FP-I2K"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="wyv-Gq-3R8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="combinationItemsCollectionView" destination="4sm-rw-chd" id="qnq-vI-Tl9"/>
+                <outlet property="createdAtLabel" destination="lOi-n7-ZUZ" id="UIB-tn-5kP"/>
+                <outlet property="nameLabel" destination="8Z5-le-TpS" id="DM1-4U-WCE"/>
+            </connections>
+            <point key="canvasLocation" x="227" y="375"/>
+        </tableViewCell>
+    </objects>
+</document>
