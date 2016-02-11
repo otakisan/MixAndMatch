@@ -200,7 +200,6 @@
 		169B02461C67867100194927 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		16A9012F1C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationListCollectionViewCell.swift; sourceTree = "<group>"; };
 		16A901301C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CombinationListCollectionViewCell.xib; sourceTree = "<group>"; };
-		16A901331C6594020031B25C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchaseProductsListTableViewController.swift; sourceTree = "<group>"; };
 		16A901381C66C5E30031B25C /* AppStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
 		16A9013A1C66DC010031B25C /* AppStoreObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreObserver.swift; sourceTree = "<group>"; };
@@ -331,7 +330,6 @@
 		167856111C53A1BA00DC21E8 = {
 			isa = PBXGroup;
 			children = (
-				16A901331C6594020031B25C /* iAd.framework */,
 				168829F21C5C602C006D383C /* AssetsLibrary.framework */,
 				168829F31C5C602C006D383C /* Photos.framework */,
 				1678565A1C53B2A400DC21E8 /* Realm.framework */,
