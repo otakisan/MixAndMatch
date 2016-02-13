@@ -17,8 +17,6 @@ class CombinationItemCollectionViewCell: UICollectionViewCell {
     func configure(combinationItem : CombinationItem) {
         //self.visibleCheckmark = false
         
-        // TODO: アルバムから画像を取得して表示
-        // combinationItemの中にパスが必要
         //print("localId : \(combinationItem.localFileURL)")
         let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([combinationItem.localFileURL], options: nil)
         var assetFetched : PHAsset?
@@ -27,7 +25,11 @@ class CombinationItemCollectionViewCell: UICollectionViewCell {
             stop.memory = true
         }
         
-        PHImageManager.defaultManager().requestImageForAsset(assetFetched!, targetSize: CGSizeMake(130, 130), contentMode: PHImageContentMode.AspectFit, options: nil) { (image, info) -> Void in
+        guard let assetFetchedUnwrapped = assetFetched else {
+            return
+        }
+        
+        PHImageManager.defaultManager().requestImageForAsset(assetFetchedUnwrapped, targetSize: CGSizeMake(130, 130), contentMode: PHImageContentMode.AspectFit, options: nil) { (image, info) -> Void in
             if let itemImage = image {
                 self.combinationItemImageView.contentMode = .ScaleAspectFill
                 self.combinationItemImageView.image = itemImage

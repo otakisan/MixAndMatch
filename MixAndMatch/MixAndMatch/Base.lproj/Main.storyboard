@@ -213,10 +213,12 @@
                         <barButtonItem systemItem="compose" id="Y6u-2v-Bxv">
                             <connections>
                                 <action selector="onTapNewCombinationBarButtonItem:" destination="HYU-u9-llL" id="g3c-gy-EM3"/>
-                                <segue destination="bfU-gT-f89" kind="show" identifier="showCombinationEditTableViewControllerSegue" id="NVM-9S-VDZ"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
+                    <connections>
+                        <segue destination="bfU-gT-f89" kind="show" identifier="showCombinationEditTableViewControllerSegue" id="kud-UN-UTw"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i0m-o6-MmG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -331,7 +333,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="HF1-TA-Ons"/>
                         <barButtonItem title="カテゴリー追加" id="N68-vY-ei4">
                             <connections>
-                                <segue destination="1sY-Wf-LDy" kind="show" id="81f-h3-xaX"/>
+                                <action selector="onTapAddCategory:" destination="bfU-gT-f89" id="txv-Vb-6zv"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -342,6 +344,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="1sY-Wf-LDy" kind="show" identifier="showCategoryPickerTableViewControllerSegue" id="zB2-OV-vU9"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLh-7r-qui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

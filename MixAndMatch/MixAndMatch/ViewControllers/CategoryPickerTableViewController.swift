@@ -45,7 +45,9 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        // カテゴリの削除は、まだ有効化しないでおく
+        //self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
+        
         self.tableView.allowsMultipleSelection = self.multiSelect
         self.loadCategories()
     }
@@ -174,12 +176,23 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            self.deleteCategoryAtIndexPath(indexPath)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
     */
+    
+    func deleteCategoryAtIndexPath(indexPath : NSIndexPath) {
+        if let realm = try? Realm() {
+            let _ = try? realm.write({ () -> Void in
+                let removed = self.categories.removeAtIndex(indexPath.row)
+                print("removing folder : \(removed)")
+                realm.delete(removed)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            })
+        }
+    }
 
     /*
     // Override to support rearranging the table view.

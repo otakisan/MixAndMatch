@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1640D38C1C6EA42D00A9ADA5 /* InAppPurchaseProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640D38B1C6EA42D00A9ADA5 /* InAppPurchaseProduct.swift */; };
+		1640D38E1C6EAD6800A9ADA5 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640D38D1C6EAD6800A9ADA5 /* AppContext.swift */; };
+		1640D3921C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640D3911C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift */; };
 		1678561E1C53A1BA00DC21E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1678561D1C53A1BA00DC21E8 /* AppDelegate.swift */; };
 		167856231C53A1BA00DC21E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 167856211C53A1BA00DC21E8 /* Main.storyboard */; };
 		167856251C53A1BA00DC21E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 167856241C53A1BA00DC21E8 /* Assets.xcassets */; };
@@ -158,6 +161,9 @@
 		1640D3881C6C949300A9ADA5 /* x509_vfy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509_vfy.h; sourceTree = "<group>"; };
 		1640D3891C6C949300A9ADA5 /* x509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509.h; sourceTree = "<group>"; };
 		1640D38A1C6C949300A9ADA5 /* x509v3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x509v3.h; sourceTree = "<group>"; };
+		1640D38B1C6EA42D00A9ADA5 /* InAppPurchaseProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchaseProduct.swift; sourceTree = "<group>"; };
+		1640D38D1C6EAD6800A9ADA5 /* AppContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		1640D3911C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		1678561A1C53A1BA00DC21E8 /* MixAndMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixAndMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1678561D1C53A1BA00DC21E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		167856221C53A1BA00DC21E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -370,6 +376,7 @@
 				168D91631C54A05B0069D44D /* Views */,
 				169B02421C676A9B00194927 /* MixAndMatch-Bridging-Header.m */,
 				169B02411C676A9B00194927 /* MixAndMatch-Bridging-Header.h */,
+				1640D38D1C6EAD6800A9ADA5 /* AppContext.swift */,
 			);
 			path = MixAndMatch;
 			sourceTree = "<group>";
@@ -437,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				168D916B1C54B9960069D44D /* DateUtility.swift */,
+				1640D3911C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -455,6 +463,7 @@
 			children = (
 				16A901381C66C5E30031B25C /* AppStoreManager.swift */,
 				16A9013A1C66DC010031B25C /* AppStoreObserver.swift */,
+				1640D38B1C6EA42D00A9ADA5 /* InAppPurchaseProduct.swift */,
 				169B02381C6758F800194927 /* ReceiptValidator.swift */,
 			);
 			path = InAppPurchase;
@@ -620,9 +629,11 @@
 				16A901311C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift in Sources */,
 				168D91761C54DE1B0069D44D /* CombinationEditTableViewCell.swift in Sources */,
 				167856621C543B8700DC21E8 /* FolderListBaseTableViewController.swift in Sources */,
+				1640D38C1C6EA42D00A9ADA5 /* InAppPurchaseProduct.swift in Sources */,
 				16A901391C66C5E30031B25C /* AppStoreManager.swift in Sources */,
 				168D91721C54C17A0069D44D /* CombinationItem.swift in Sources */,
 				1678561E1C53A1BA00DC21E8 /* AppDelegate.swift in Sources */,
+				1640D38E1C6EAD6800A9ADA5 /* AppContext.swift in Sources */,
 				168D91621C549E130069D44D /* CombinationListTableViewController.swift in Sources */,
 				168D91661C54A4870069D44D /* CombinationListTableViewCell.swift in Sources */,
 				168D91691C54AC8C0069D44D /* CombinationListFilteredTableViewController.swift in Sources */,
@@ -635,6 +646,7 @@
 				168D91741C54C7220069D44D /* CombinationEditTableViewController.swift in Sources */,
 				168D917E1C550A190069D44D /* CombinationItemViewController.swift in Sources */,
 				167856691C54522400DC21E8 /* FolderListTableViewController.swift in Sources */,
+				1640D3921C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift in Sources */,
 				167856671C54450900DC21E8 /* Combination.swift in Sources */,
 				168D91701C54BFF60069D44D /* Category.swift in Sources */,
 				168D917C1C54F36F0069D44D /* CategoryPickerTableViewController.swift in Sources */,

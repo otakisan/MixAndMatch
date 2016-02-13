@@ -12,6 +12,22 @@ import RealmSwift
 class CombinationListTableViewController: CombinationListBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, CombinationListFilteredTableViewControllerDelegate {
 
     @IBAction func onTapNewCombinationBarButtonItem(sender: UIBarButtonItem) {
+        self.showCombinationEditViewControllerIfPossible()
+    }
+    
+    func showCombinationEditViewControllerIfPossible() {
+        guard let folderUUID = self.folderUUID else {
+            self.showAlertMessage("有効なフォルダに紐付いていません", message: nil)
+            return
+        }
+        
+        let maxCountOfLocalSaveCombinationInFolder = AppContext.sharedInstance.maxCountOfLocalSaveCombinationInFolder
+        let currentCountOfCombinationsInFolder = try? Realm().objects(Combination).filter("folder.uuid = '\(folderUUID)'").count
+        if currentCountOfCombinationsInFolder < maxCountOfLocalSaveCombinationInFolder {
+            self.performSegueWithIdentifier("showCombinationEditTableViewControllerSegue", sender: self)
+        } else {
+            self.showAlertMessage("保存数の上限に達しています。", message: "フォルダ内に保存できる数の上限[\(maxCountOfLocalSaveCombinationInFolder)]に達しているため、新規で追加できません。")
+        }
     }
     
     // Search controller to help us with filtering.
@@ -40,9 +56,14 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     }
     
     func loadCombinations() {
+        guard let folderUUID = self.folderUUID else {
+            self.showAlertMessage("有効なフォルダに紐付いていません", message: nil)
+            return
+        }
+
         if let realm = try? Realm() {
             // TODO: Results<Combination>のまま保持するのが、よい？
-            let results = realm.objects(Combination).filter("folder.name = '\(self.folderName)'")
+            let results = realm.objects(Combination).filter("folder.uuid = '\(folderUUID)'")
             self.combinations = results.map{$0}
             let _ = self.combinations.forEach({ (combo) -> () in
                 let _ = combo.combinationItems.map{print($0.name)}

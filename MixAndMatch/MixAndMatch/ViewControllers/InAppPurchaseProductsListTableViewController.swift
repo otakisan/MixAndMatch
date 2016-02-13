@@ -58,12 +58,14 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return section < self.availableProducts.count ? self.availableProducts.reduce(0, combine: { (prev, elem) -> Int in
-            return prev + elem.elements.count
-        }) : (section < (self.availableProducts.count + self.purchasedProducts.count) ?
-        self.purchasedProducts.reduce(0, combine: { (prev, elem) -> Int in
-            return prev + elem.elements.count
-        }) : 0)
+        return section < self.availableProducts.count ? self.availableProducts[section].elements.count :
+            (section < (self.availableProducts.count + self.purchasedProducts.count)) ? self.purchasedProducts[section - self.availableProducts.count].elements.count : 0
+//        return section < self.availableProducts.count ? self.availableProducts.reduce(0, combine: { (prev, elem) -> Int in
+//            return prev + elem.elements.count
+//        }) : (section < (self.availableProducts.count + self.purchasedProducts.count) ?
+//        self.purchasedProducts.reduce(0, combine: { (prev, elem) -> Int in
+//            return prev + elem.elements.count
+//        }) : 0)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -71,8 +73,10 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
 
         // Configure the cell...
         if self.availableProducts.count > indexPath.section {
-            cell.textLabel?.text = self.availableProducts[indexPath.section].elements[indexPath.row].localizedTitle
-            cell.detailTextLabel?.text = self.availableProducts[indexPath.section].elements[indexPath.row].localizedDescription
+            let skProduct : SKProduct = self.availableProducts[indexPath.section].elements[indexPath.row]
+            cell.textLabel?.text = skProduct.localizedTitle
+            cell.detailTextLabel?.text = skProduct.localizedDescription
+            cell.accessoryType = InAppPurchaseProductManager.sharedInstance.purchased(skProduct.productIdentifier) ? .Checkmark : .None
         } else if (self.availableProducts.count + self.purchasedProducts.count) > indexPath.section {
             let index = indexPath.section - self.availableProducts.count
             let product = AppStoreManager.sharedInstance.titleMatchingProductIdentifier(self.purchasedProducts[index].elements[indexPath.row].payment.productIdentifier)
@@ -217,6 +221,7 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         if let productRequestNotification = notification?.object as? AppStoreManager {
             if productRequestNotification.status == .ProductRequestResponse {
                 self.reloadUIWithData(productRequestNotification.productRequestResponse)
+                self.reloadUIWithData(self.dataSourceForPurchasesUI())
             }
         }
     }
@@ -229,12 +234,19 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
             let status = purchasesNotification.status
             
             switch status {
+            case .PurchaseSucceeded:
+                // ProductIdに紐づく機能の有効化
+                InAppPurchaseProductManager.sharedInstance.applyInAppProductByProductId(purchasesNotification.purchasedID)
+                self.reloadUIWithData(self.dataSourceForPurchasesUI())
+                break
             case .PurchaseFailed:
                 self.alertWithTitle("Purchase Status", message: purchasesNotification.message)
                 break
                 
                 // Switch to the iOSPurchasesList view controller when receiving a successful restore notification
             case .RestoredSucceeded:
+                // ProductIdに紐づく機能の有効化
+                InAppPurchaseProductManager.sharedInstance.applyInAppProductByProductId(purchasesNotification.purchasedID)
                 
                 self.restoreWasCalled = true
                 self.reloadUIWithData(self.dataSourceForPurchasesUI())

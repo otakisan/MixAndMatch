@@ -22,6 +22,25 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     var folderUUID : String?
     var delegate : CombinationEditTableViewControllerDelegate?
     
+    @IBAction func onTapAddCategory(sender: UIBarButtonItem) {
+        self.showCategoryPickerViewControllerIfPossible()
+    }
+    
+    private func showCategoryPickerViewControllerIfPossible() {
+        guard let combination = self.combination else {
+            self.showAlertMessage("有効な組み合わせ情報が存在しません。", message: nil)
+            return
+        }
+        
+        let maxCountOfCombinationItems = AppContext.sharedInstance.maxCountOfCombinationItems
+        let currentCountOfCombinationItems = combination.combinationItems.count
+        if currentCountOfCombinationItems < maxCountOfCombinationItems {
+            self.performSegueWithIdentifier("showCategoryPickerTableViewControllerSegue", sender: self)
+        } else {
+            self.showAlertMessage("組み合わせアイテムの上限に達しています。", message: "１つの組み合わせ内に保存できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItems)]に達しているため、新規で追加できません。")
+        }
+    }
+
     @IBAction func onTapAddNewItem(sender: UIBarButtonItem) {
         //self.pickImage()
     }
@@ -29,6 +48,8 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     @IBAction func onTapSaveBarButtonItem(sender: UIBarButtonItem) {
         self.addOrUpdateCombination()
         self.delegate?.didSaveCombination(self.combination!)
+        
+        self.showAlertMessage("保存しました。", message: nil)
         
         if self.navigationController?.viewControllers.first == self {
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -57,24 +78,27 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         if self.navigationController?.viewControllers.first == self {
-            // TODO: 値を変更した時点で保存してしまっているから、「閉じる」のほうがよさそう
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelBarButtonItem:")
         }
         
         // 存在しない時は新規
         if self.combination == nil {
+            // 新規の場合は、編集ボタン＋保存ボタン
+            self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
+
+            // 空データを設定
             self.combination = Combination()
         } else {
+            // 更新の場合は、保存ボタンは不要
+            self.navigationItem.rightBarButtonItem = self.editButtonItem()
+
             // 存在する場合は、設定済みアイテムからカテゴリを洗い出す
             self.combination?.combinationItems.forEach{print("category : \($0.category)")}
             
-            self.categoriesForEdit = self.combination?.combinationItems.map{$0.category ?? Category()} ?? []
+            // 存在するカテゴリのみ表示
+            self.categoriesForEdit = self.combination?.combinationItems.filter{$0.category != nil}.map{$0.category!} ?? []
         }
     }
 
@@ -87,7 +111,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         super.viewDidAppear(animated)
         
         // TODO: 初回だけに限定したほうがよい？？
-        self.selectCombinationItems()
+        //self.selectCombinationItems()
     }
     
     func selectCombinationItems() {
@@ -163,9 +187,10 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         detailAction.backgroundColor = UIColor.lightGrayColor()
 
         let addCombinationItemAction = UITableViewRowAction(style: .Normal, title: "追加"){(action, indexPath) in
-            self.showImagePickerViewController(.PhotoLibrary)
-            self.targetCategoryNameForAddItem = self.categoriesForEdit[indexPath.section - 1].name
-            self.tableView.setEditing(false, animated: true)
+            self.showImagePickerViewControllerIfPossible(indexPath)
+//            self.showImagePickerViewController(.PhotoLibrary)
+//            self.targetCategoryNameForAddItem = self.categoriesForEdit[indexPath.section - 1].name
+//            self.tableView.setEditing(false, animated: true)
         }
         addCombinationItemAction.backgroundColor = UIColor.greenColor()
         
@@ -176,9 +201,23 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         }
         deleteAction.backgroundColor = UIColor.redColor()
         
-        return [detailAction, addCombinationItemAction, deleteAction]
+        // 詳細情報は一旦非表示
+        return [/*detailAction,*/ addCombinationItemAction, deleteAction]
     }
     
+    private func showImagePickerViewControllerIfPossible(indexPath : NSIndexPath) {
+        
+        let maxCountOfCombinationItemsInCategory = AppContext.sharedInstance.maxCountOfCombinationItemsInCategory
+        let currentCountOfCombinationItemsInCategory = self.categoriesForEdit[indexPath.section - 1].combinationItems.count
+        if currentCountOfCombinationItemsInCategory < maxCountOfCombinationItemsInCategory {
+            self.showImagePickerViewController(.PhotoLibrary)
+            self.targetCategoryNameForAddItem = self.categoriesForEdit[indexPath.section - 1].name
+            self.tableView.setEditing(false, animated: true)
+        } else {
+            self.showAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。")
+        }
+    }
+
     func showDetailActionSheet() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         

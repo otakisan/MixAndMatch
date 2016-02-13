@@ -76,10 +76,8 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
 
     func configure(item : CombinationItem) {
         self.combinationItems = item.category?.combinationItems.map{$0} ?? []
-        
-        // TODO: 上から来たものを選択したものとして良い？？
         print("item : \(item)")
-        self.selectedCombinationItem = item
+        self.setSelectedCombinationItem(item)
         
         self.combinationItemCollectionView.dataSource = self
         self.combinationItemCollectionView.delegate = self
@@ -100,15 +98,10 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
         cell.visibleCheckmark = selected
     }
     
-//    func selectAndCallBack(cell : CombinationItemCollectionViewCell, indexPath : NSIndexPath) {
-//        self.delegate?.didSelectCombinationItem(self.combinationItems[indexPath.row])
-//        self.selectedCombinationItem = self.combinationItems[indexPath.row]
-//        self.changeAppearance(cell, selected: true)
-//    }
-//    
-//    func deselectAndCallBack(cell : CombinationItemCollectionViewCell, indexPath : NSIndexPath) {
-//        self.changeAppearance(cell, selected: false)
-//    }
+    private func setSelectedCombinationItem(item : CombinationItem) {
+        self.selectedCombinationItem = item
+        self.delegate?.didSelectCombinationItem(item)
+    }
 }
 
 extension CombinationItemCombinationEditTableViewCell : UICollectionViewDataSource {
@@ -124,39 +117,35 @@ extension CombinationItemCombinationEditTableViewCell : UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("combinationItemCollectionViewCell", forIndexPath: indexPath) as! CombinationItemCollectionViewCell
         
         cell.configure(self.combinationItems[indexPath.row])
-        if self.combinationItems[indexPath.row].uuid == self.selectedCombinationItem?.uuid {
-            //self.selectAndCallBack(cell, indexPath: indexPath)
-            self.changeAppearance(cell, selected: true)
-//            self.combinationItemCollectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.Bottom)
-//            self.collectionView(self.combinationItemCollectionView, didSelectItemAtIndexPath: indexPath)
-        } else {
-            //self.deselectAndCallBack(cell, indexPath: indexPath)
-            self.changeAppearance(cell, selected: false)
-        }
-        
         return cell
     }
 }
 
 extension CombinationItemCombinationEditTableViewCell : UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
-        self.delegate?.didSelectCombinationItem(self.combinationItems[indexPath.row])
-        self.selectedCombinationItem = self.combinationItems[indexPath.row]
+        // ここはあくまで、ユーザーがタップして選択した場合の処理
+        // selectItemAtIndexPathを呼んだ後、直接コールしないこと（しても、セルが取れない）
+        self.setSelectedCombinationItem(self.combinationItems[indexPath.row])
         
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CombinationItemCollectionViewCell {
             self.changeAppearance(cell, selected: true)
-//            cell.layer.borderWidth = 1.0
-//            cell.layer.borderColor = UIColor.blueColor().CGColor
-//            cell.visibleCheckmark = true
         }
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CombinationItemCollectionViewCell {
             self.changeAppearance(cell, selected: false)
-//            cell.layer.borderWidth = 0
-//            cell.layer.borderColor = UIColor.clearColor().CGColor
-//            cell.visibleCheckmark = false
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        // 再表示時に外観を整える必要がある
+        if self.combinationItems[indexPath.row].uuid == self.selectedCombinationItem?.uuid {
+            self.combinationItemCollectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition.None)
+            self.changeAppearance(cell as! CombinationItemCollectionViewCell, selected: true)
+        } else {
+            self.combinationItemCollectionView.deselectItemAtIndexPath(indexPath, animated: false)
+            self.changeAppearance(cell as! CombinationItemCollectionViewCell, selected: false)
         }
     }
 }

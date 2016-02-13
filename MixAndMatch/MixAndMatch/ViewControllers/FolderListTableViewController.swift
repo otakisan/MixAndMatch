@@ -12,7 +12,7 @@ import RealmSwift
 class FolderListTableViewController: FolderListBaseTableViewController, UITextFieldDelegate {
 
     @IBAction func onTouchNewFolderBarButtonItem(sender: UIBarButtonItem) {
-        self.showCreateNewFolderPrompt()
+        self.showCreateNewFolderPromptIfPossible()
     }
     
     override func viewDidLoad() {
@@ -59,6 +59,16 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    func showCreateNewFolderPromptIfPossible() {
+        let maxCountOfLocalSaveFolder = AppContext.sharedInstance.maxCountOfLocalSaveFolder
+        let currentCountOfFolder = try? Realm().objects(Folder).count
+        if currentCountOfFolder < maxCountOfLocalSaveFolder {
+            self.showCreateNewFolderPrompt()
+        }else{
+            self.showAlertMessage("保存数の上限に達しています。", message: "保存数の上限[\(maxCountOfLocalSaveFolder)]に達しているため、新規で追加できません。")
+        }
+    }
+        
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
         
         let replacedText = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
