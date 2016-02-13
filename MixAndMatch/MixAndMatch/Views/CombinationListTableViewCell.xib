@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Combination Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Z5-le-TpS">
-                        <rect key="frame" x="134" y="8" width="178" height="21"/>
+                        <rect key="frame" x="142" y="8" width="170" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -32,10 +32,10 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016年12月28日木曜日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOi-n7-ZUZ">
-                        <rect key="frame" x="8" y="8" width="118" height="21"/>
+                        <rect key="frame" x="8" y="8" width="126" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="P90-Fp-fFY"/>
-                            <constraint firstAttribute="width" constant="118" id="vKT-yP-iyH"/>
+                            <constraint firstAttribute="height" constant="21" id="Q7M-DW-Nma"/>
+                            <constraint firstAttribute="width" constant="126" id="rIa-a4-RtT"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -43,16 +43,16 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="4sm-rw-chd" firstAttribute="top" secondItem="lOi-n7-ZUZ" secondAttribute="bottom" constant="8" symbolic="YES" id="01r-Ji-XLb"/>
-                    <constraint firstItem="lOi-n7-ZUZ" firstAttribute="leading" secondItem="4sm-rw-chd" secondAttribute="leading" id="2UA-EF-mNf"/>
-                    <constraint firstItem="4sm-rw-chd" firstAttribute="trailing" secondItem="8Z5-le-TpS" secondAttribute="trailing" id="4ca-AD-ll2"/>
-                    <constraint firstItem="4sm-rw-chd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="BpE-O6-rCN"/>
-                    <constraint firstItem="8Z5-le-TpS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="CRI-us-Gj4"/>
-                    <constraint firstItem="4sm-rw-chd" firstAttribute="top" secondItem="8Z5-le-TpS" secondAttribute="bottom" constant="8" symbolic="YES" id="DKQ-oA-Gpa"/>
-                    <constraint firstItem="8Z5-le-TpS" firstAttribute="top" secondItem="lOi-n7-ZUZ" secondAttribute="top" id="EAF-st-ffo"/>
-                    <constraint firstItem="8Z5-le-TpS" firstAttribute="leading" secondItem="lOi-n7-ZUZ" secondAttribute="trailing" constant="8" symbolic="YES" id="HjQ-3e-S2N"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="4sm-rw-chd" secondAttribute="bottom" constant="-0.5" id="q8X-FP-I2K"/>
-                    <constraint firstItem="8Z5-le-TpS" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="wyv-Gq-3R8"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="top" secondItem="8Z5-le-TpS" secondAttribute="bottom" constant="8" symbolic="YES" id="2Ok-EO-yWd"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="3Di-AF-R50"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="trailing" secondItem="8Z5-le-TpS" secondAttribute="trailing" id="7gU-zT-v9U"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="9Ea-xP-c1Z"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="leading" secondItem="lOi-n7-ZUZ" secondAttribute="trailing" constant="8" symbolic="YES" id="Js2-gO-O2b"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="top" secondItem="lOi-n7-ZUZ" secondAttribute="top" id="L0I-oC-alD"/>
+                    <constraint firstItem="8Z5-le-TpS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="OtF-fd-Xjg"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="leading" secondItem="lOi-n7-ZUZ" secondAttribute="leading" id="TpD-i4-LB3"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4sm-rw-chd" secondAttribute="bottom" constant="-0.5" id="bGh-lP-4LR"/>
+                    <constraint firstItem="4sm-rw-chd" firstAttribute="top" secondItem="lOi-n7-ZUZ" secondAttribute="bottom" constant="8" symbolic="YES" id="nUQ-iD-urD"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
