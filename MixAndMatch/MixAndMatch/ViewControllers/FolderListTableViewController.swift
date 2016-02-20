@@ -23,6 +23,9 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // 編集時の選択を可能とする
+        self.tableView.allowsSelectionDuringEditing = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,6 +107,35 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         }
     }
     
+    func showRenameFolderPrompt(currentFolder: Folder) {
+        let alertController = UIAlertController(title: "フォルダの名前を変更", message: "このフォルダの新しい名前を入力してください。", preferredStyle: .Alert)
+        
+        let alertActionSave = UIAlertAction(title: "保存", style: UIAlertActionStyle.Default) { (action) -> Void in
+            if let newFolderNameText = alertController.textFields?.first?.text, let realm = try? Realm() {
+                let _ = try? realm.write { currentFolder.name = newFolderNameText }
+            }
+            
+            self.alertActionSave = nil
+            self.refreshData()
+        }
+        alertActionSave.enabled = currentFolder.name != ""
+        self.alertActionSave = alertActionSave
+        
+        let alertActionCancel = UIAlertAction(title: "キャンセル", style: .Cancel, handler: nil)
+        
+        //textfiledの追加
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.text = currentFolder.name
+            textField.placeholder = "名前"
+            textField.delegate = self
+        }
+        
+        alertController.addAction(alertActionSave)
+        alertController.addAction(alertActionCancel)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -173,6 +205,15 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
     }
     */
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.tableView.editing {
+            // 編集時は、リネームダイアログを表示する
+            self.showRenameFolderPrompt(self.folders[indexPath.row])
+        }else{
+            // 通常時は、組み合わせ一覧に遷移する
+            self.performSegueWithIdentifier("showCombinationListTableViewControllerSegue", sender: self)
+        }
+    }
     
     // MARK: - Navigation
 

@@ -12,7 +12,6 @@ import RealmSwift
 class CategoryPickerTableViewController: UITableViewController, UITextFieldDelegate {
     
     var categories : [Category] = []
-    var multiSelect : Bool = false
 
     var delegate : CategoryPickerTableViewControllerDelegate?
     
@@ -48,7 +47,6 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         // カテゴリの削除は、まだ有効化しないでおく
         //self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
         
-        self.tableView.allowsMultipleSelection = self.multiSelect
         self.loadCategories()
     }
 
@@ -146,13 +144,19 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
 
+    private func setSelectedBackgroundView(cell : UITableViewCell) {
+        let selectedBgView = UIView()
+        selectedBgView.backgroundColor = UIColor(colorLiteralRed: (227.0/255.0), green: (236.0/255.0), blue: (248.0/255.0), alpha: 1.0)
+        selectedBgView.layer.masksToBounds = true
+        cell.selectedBackgroundView = selectedBgView
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("categoryPickerTableViewCell", forIndexPath: indexPath)
 
         // Configure the cell...
         cell.textLabel?.text = self.categories[indexPath.row].name
-
+        self.setSelectedBackgroundView(cell)
         return cell
     }
     
@@ -163,6 +167,25 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
     }
+    
+    override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+        for sectionIndex in 0..<self.tableView.numberOfSections {
+            for rowIndex in 0..<self.tableView.numberOfRowsInSection(sectionIndex){
+                self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex))?.accessoryType = UITableViewCellAccessoryType.None
+            }
+        }
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let modifyAction = UITableViewRowAction(style: .Normal, title: "変更"){(action, indexPath) in
+            self.showRenameFolderPrompt(self.categories[indexPath.row])
+            self.tableView.setEditing(false, animated: true)
+        }
+        modifyAction.backgroundColor = UIColor.lightGrayColor()
+
+        return [modifyAction]
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -171,17 +194,17 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        /*
         if editingStyle == .Delete {
             // Delete the row from the data source
             self.deleteCategoryAtIndexPath(indexPath)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        */
     }
-    */
     
     func deleteCategoryAtIndexPath(indexPath : NSIndexPath) {
         if let realm = try? Realm() {
@@ -192,6 +215,38 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             })
         }
+    }
+
+    // アラート表示は共通化したいけど、呼び出し元との依存を切り離せる？
+    // それと、UIAlertControllerがメモリーリークするらしい（すでに直った？）
+    func showRenameFolderPrompt(currentCategory : Category) {
+        let alertController = UIAlertController(title: "カテゴリーの名前を変更", message: "このカテゴリーの名前を入力してください。", preferredStyle: .Alert)
+        
+        let alertActionSave = UIAlertAction(title: "保存", style: UIAlertActionStyle.Default) { (action) -> Void in
+            if let newCategoryNameText = alertController.textFields?.first?.text, let realm = try? Realm() {
+                let _ = try? realm.write {currentCategory.name = newCategoryNameText}
+            }
+            
+            self.alertActionSave = nil
+            self.refreshData()
+        }
+        
+        alertActionSave.enabled = currentCategory.name != ""
+        self.alertActionSave = alertActionSave
+        
+        let alertActionCancel = UIAlertAction(title: "キャンセル", style: .Cancel, handler: nil)
+        
+        //textfiledの追加
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.text = currentCategory.name
+            textField.placeholder = "名前"
+            textField.delegate = self
+        }
+        
+        alertController.addAction(alertActionSave)
+        alertController.addAction(alertActionCancel)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     /*

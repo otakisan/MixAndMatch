@@ -195,7 +195,12 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         addCombinationItemAction.backgroundColor = UIColor.greenColor()
         
         let deleteAction = UITableViewRowAction(style: .Default, title: "削除"){(action, indexPath) in
-            self.categoriesForEdit.removeAtIndex(indexPath.section - 1)
+            let removed = self.categoriesForEdit.removeAtIndex(indexPath.section - 1)
+            if let removingIndex = self.combination?.combinationItems.indexOf({$0.category?.uuid == removed.uuid}) {
+                // Combinationg側から削除する
+                // CombinationItem側からdeleteすると、それ自体が削除されてしまう
+                let _ = try? self.combination?.realm?.write {self.combination?.combinationItems.removeAtIndex(removingIndex)}
+            }
             tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
             self.tableView.setEditing(false, animated: true)
         }
@@ -273,7 +278,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         // Pass the selected object to the new view controller.
         if let categoryPickerVC = segue.destinationViewController as? CategoryPickerTableViewController {
             categoryPickerVC.delegate = self
-            categoryPickerVC.multiSelect = true
         }
     }
     

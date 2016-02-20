@@ -38,9 +38,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="HYU-u9-llL" kind="show" id="eGi-mm-ibD"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -62,6 +59,9 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="VBf-ZN-6VK"/>
+                    <connections>
+                        <segue destination="HYU-u9-llL" kind="show" identifier="showCombinationListTableViewControllerSegue" id="qdX-Hu-kgA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mpd-eD-B94" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -356,7 +356,7 @@
         <scene sceneID="qep-gF-igo">
             <objects>
                 <tableViewController id="1sY-Wf-LDy" customClass="CategoryPickerTableViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pG2-YQ-b0v">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pG2-YQ-b0v">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
