@@ -420,6 +420,41 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         var assetLocalId : String?
         
         if let phAsset = PHAsset.fetchAssetsWithALAssetURLs([imageUrl], options: nil).firstObject as? PHAsset {
+            assetLocalId = phAsset.localIdentifier
+            dispatch_async(dispatch_get_main_queue(), {
+                print("localAssetId : \(assetLocalId)")
+                completion?(localId: assetLocalId)
+            })
+
+            /* requestImageDataForAssetだと複数回コールバックされない
+            PHImageManager.defaultManager().requestImageDataForAsset(phAsset, options: nil, resultHandler: { (imageData, dataUTI, orientation, info) -> Void in
+                print(info)
+                if let fileUrl = info?["PHImageFileURLKey"] as? NSURL {
+                    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                    dispatch_async(dispatch_get_global_queue(priority, 0), {
+                        PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+                            if let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(fileUrl) {
+                                let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
+                                assetLocalId = assetPlaceholder?.localIdentifier
+                                if let albumChangeRequest = PHAssetCollectionChangeRequest(forAssetCollection: album) {
+                                    albumChangeRequest.addAssets([assetPlaceholder!])
+                                }
+                            }
+                            }, completionHandler: { (success, error) in
+                                print(success)
+                                print(error)
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    NSLog("Adding Image to Library -> %@", (success ? "Sucess":"Error!"))
+                                    completion?(localId: assetLocalId)
+                                })
+                        })
+                    })
+                }
+            })
+            */
+            
+            /* 元画像が複製されて、その複製されたものへのリンクがアプリのアルバムに追加される。
+             * 追加するたびに画像が増えてしまうので、一旦元画像のリンクをそのまま扱い、アルバムへの追加は行わない
             // 同期で取得したい場合、optionsに指定 -> PHImageRequestOptions().synchronous = true
             PHImageManager.defaultManager().requestImageForAsset(phAsset, targetSize: CGSizeMake(300, 300), contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (image, info) -> Void in
                 print(info)
@@ -447,6 +482,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                     })
                 }
             })
+            */
         }
     }
     
