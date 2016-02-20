@@ -273,6 +273,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         // Pass the selected object to the new view controller.
         if let categoryPickerVC = segue.destinationViewController as? CategoryPickerTableViewController {
             categoryPickerVC.delegate = self
+            categoryPickerVC.multiSelect = true
         }
     }
     
