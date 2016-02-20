@@ -333,6 +333,16 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             }
             print("itemName : \(itemNameByExif)")
             
+            // アプリのアルバムは作成せず、指定画像のlocalIdentifierをそのまま保存する
+            if let phAsset = PHAsset.fetchAssetsWithALAssetURLs([selectedImageUrl], options: nil).firstObject as? PHAsset {
+                self.createCombinationItem(categoryName, itemName: itemNameByExif, photoLocalId: phAsset.localIdentifier)
+                self.reloadCategory(categoryName)
+                self.tableView.reloadData()
+            }
+            
+            /*
+            // 元画像が複製されて、その複製されたものへのリンクがアプリのアルバムに追加される。
+            // 追加するたびに画像が増えてしまうので、一旦元画像のリンクをそのまま扱い、アルバムへの追加は行わない
             // 選択したものをアプリ用のアルバムに追加
             if let appAlbum = self.createOrFetchAlbum("MixAndMatch") {
                 self.addAsset(appAlbum, imageUrl: selectedImageUrl, completion: { (localId) -> Void in
@@ -344,6 +354,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                     }
                 })
             }
+            */
         }
         
         self.targetCategoryNameForAddItem = nil
@@ -420,11 +431,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         var assetLocalId : String?
         
         if let phAsset = PHAsset.fetchAssetsWithALAssetURLs([imageUrl], options: nil).firstObject as? PHAsset {
-            assetLocalId = phAsset.localIdentifier
-            dispatch_async(dispatch_get_main_queue(), {
-                print("localAssetId : \(assetLocalId)")
-                completion?(localId: assetLocalId)
-            })
 
             /* requestImageDataForAssetだと複数回コールバックされない
             PHImageManager.defaultManager().requestImageDataForAsset(phAsset, options: nil, resultHandler: { (imageData, dataUTI, orientation, info) -> Void in
@@ -453,8 +459,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             })
             */
             
-            /* 元画像が複製されて、その複製されたものへのリンクがアプリのアルバムに追加される。
-             * 追加するたびに画像が増えてしまうので、一旦元画像のリンクをそのまま扱い、アルバムへの追加は行わない
             // 同期で取得したい場合、optionsに指定 -> PHImageRequestOptions().synchronous = true
             PHImageManager.defaultManager().requestImageForAsset(phAsset, targetSize: CGSizeMake(300, 300), contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (image, info) -> Void in
                 print(info)
@@ -482,7 +486,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                     })
                 }
             })
-            */
         }
     }
     
