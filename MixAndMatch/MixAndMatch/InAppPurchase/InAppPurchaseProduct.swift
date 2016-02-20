@@ -144,5 +144,5 @@ class UnlimitedSaveLocallyPurchasedExtension : PurchasedExtension {
 
 enum InAppPurchaseProductId : String {
     case None = ""
-    case UnlimitedSaveLocally = "jp.cafe.MixAndMatch.adsHidden" // TODO: あとで変える
+    case UnlimitedSaveLocally = "jp.cafe.MixAndMatch.localSaveCountUnlimited" // TODO: あとで変える
 }
