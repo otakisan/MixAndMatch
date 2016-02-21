@@ -168,11 +168,11 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         self.tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.None
     }
     
-    override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
-        for sectionIndex in 0..<self.tableView.numberOfSections {
-            for rowIndex in 0..<self.tableView.numberOfRowsInSection(sectionIndex){
-                self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex))?.accessoryType = UITableViewCellAccessoryType.None
-            }
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            self.forEachCells{ $1.accessoryType = UITableViewCellAccessoryType.None }
         }
     }
     

@@ -22,3 +22,15 @@ extension UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
+
+extension UITableViewController {
+    func forEachCells( block : ((indexPath : NSIndexPath, cell : UITableViewCell) -> Void) ) {
+        for sectionIndex in 0..<self.tableView.numberOfSections {
+            for rowIndex in 0..<self.tableView.numberOfRowsInSection(sectionIndex){
+                if let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: sectionIndex)){
+                    block(indexPath: NSIndexPath(forRow: rowIndex, inSection: sectionIndex), cell: cell)
+                }
+            }
+        }
+    }
+}

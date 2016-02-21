@@ -159,7 +159,25 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         return cell
     }
     
-
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            // 編集モード時に下線を引くことにより、タップによるアクションが存在することを示唆する
+            self.forEachCells({ (indexPath, cell) -> Void in
+                cell.textLabel?.attributedText = NSAttributedString(string: self.folders[indexPath.row].name, attributes: [
+                    NSForegroundColorAttributeName : UIColor.blueColor(),
+                    NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
+                    ])
+            })
+        } else {
+            self.forEachCells({ (indexPath, cell) -> Void in
+                cell.textLabel?.attributedText = nil
+                cell.textLabel?.text = self.folders[indexPath.row].name
+            })
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
