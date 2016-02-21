@@ -11,7 +11,7 @@ import Photos
 
 class CombinationItemCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var checkmarkLabel: UILabel!
+    @IBOutlet weak var checkmarkImageView: UIImageView!
     @IBOutlet weak var combinationItemImageView: UIImageView!
     
     func configure(combinationItem : CombinationItem) {
@@ -39,10 +39,10 @@ class CombinationItemCollectionViewCell: UICollectionViewCell {
     
     var visibleCheckmark : Bool {
         get {
-            return !self.checkmarkLabel.hidden
+            return !self.checkmarkImageView.hidden
         }
         set(newValue){
-            self.checkmarkLabel.hidden = !newValue
+            self.checkmarkImageView.hidden = !newValue
         }
     }
 }

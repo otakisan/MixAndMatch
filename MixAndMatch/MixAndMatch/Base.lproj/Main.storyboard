@@ -283,29 +283,22 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GVl-L0-urm">
                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                                             </imageView>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Av5-SX-A7u">
-                                                                <rect key="frame" x="0.0" y="0.0" width="17" height="18"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="17" id="cxh-55-lta"/>
-                                                                    <constraint firstAttribute="height" constant="18" id="jci-VI-wDm"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark_blue" translatesAutoresizingMaskIntoConstraints="NO" id="wsG-3S-yVm">
+                                                                <rect key="frame" x="5" y="5" width="25" height="25"/>
+                                                            </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="GVl-L0-urm" secondAttribute="trailing" id="1tY-dY-ngd"/>
-                                                        <constraint firstItem="GVl-L0-urm" firstAttribute="top" secondItem="Av5-SX-A7u" secondAttribute="top" id="2CW-cf-wzG"/>
-                                                        <constraint firstAttribute="bottom" secondItem="GVl-L0-urm" secondAttribute="bottom" id="VRq-41-bqO"/>
-                                                        <constraint firstItem="Av5-SX-A7u" firstAttribute="leading" secondItem="PvO-iL-dKw" secondAttribute="leading" id="oEy-uD-mvW"/>
-                                                        <constraint firstItem="GVl-L0-urm" firstAttribute="top" secondItem="PvO-iL-dKw" secondAttribute="top" id="q8I-DX-71F"/>
-                                                        <constraint firstItem="GVl-L0-urm" firstAttribute="leading" secondItem="Av5-SX-A7u" secondAttribute="leading" id="r0h-oL-JK4"/>
+                                                        <constraint firstAttribute="bottom" secondItem="GVl-L0-urm" secondAttribute="bottom" id="AG6-1b-QaS"/>
+                                                        <constraint firstItem="wsG-3S-yVm" firstAttribute="leading" secondItem="PvO-iL-dKw" secondAttribute="leadingMargin" constant="-3" id="f3k-vy-Hyo"/>
+                                                        <constraint firstItem="GVl-L0-urm" firstAttribute="leading" secondItem="PvO-iL-dKw" secondAttribute="leading" id="jnI-oz-Iyg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="GVl-L0-urm" secondAttribute="trailing" id="kRe-Fp-35j"/>
+                                                        <constraint firstItem="wsG-3S-yVm" firstAttribute="top" secondItem="PvO-iL-dKw" secondAttribute="topMargin" constant="-3" id="qhV-s6-wrs"/>
+                                                        <constraint firstItem="GVl-L0-urm" firstAttribute="top" secondItem="PvO-iL-dKw" secondAttribute="top" id="uib-Zo-L2Z"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="checkmarkLabel" destination="Av5-SX-A7u" id="F8K-Hr-SR5"/>
+                                                        <outlet property="checkmarkImageView" destination="wsG-3S-yVm" id="7sK-OK-hjX"/>
                                                         <outlet property="combinationItemImageView" destination="GVl-L0-urm" id="uXW-uz-1Q0"/>
                                                     </connections>
                                                 </collectionViewCell>
@@ -448,4 +441,7 @@
             <point key="canvasLocation" x="215" y="934"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checkmark_blue" width="25" height="25"/>
+    </resources>
 </document>
