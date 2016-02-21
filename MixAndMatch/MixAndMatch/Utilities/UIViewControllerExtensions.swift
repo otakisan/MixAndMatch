@@ -14,4 +14,11 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func showOkCancelAlertMessage(title : String?, message : String?, okHandler: ((UIAlertAction) -> Void)?, cancelHandler: ((UIAlertAction) -> Void)?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: okHandler))
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .Cancel, handler: cancelHandler))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }

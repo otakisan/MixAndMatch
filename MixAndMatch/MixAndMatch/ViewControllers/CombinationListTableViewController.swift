@@ -188,8 +188,10 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            self.deleteCombination(self.combinations[indexPath.row])
-            
+            self.showOkCancelAlertMessage("本当に削除しますか？", message: "完全に削除され、元に戻せません。",
+                okHandler: { alertAction in self.deleteCombination(self.combinations[indexPath.row]) },
+                cancelHandler: { alertAction in self.tableView.setEditing(false, animated: false) }
+            )
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
