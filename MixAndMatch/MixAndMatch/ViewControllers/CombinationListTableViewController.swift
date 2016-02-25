@@ -17,7 +17,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     
     func showCombinationEditViewControllerIfPossible() {
         guard let folderUUID = self.folderUUID else {
-            self.showAlertMessage("有効なフォルダに紐付いていません", message: nil)
+            self.showAlertMessage("有効なフォルダに紐付いていません", message: nil, okHandler: nil)
             return
         }
         
@@ -26,7 +26,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         if currentCountOfCombinationsInFolder < maxCountOfLocalSaveCombinationInFolder {
             self.performSegueWithIdentifier("showCombinationEditTableViewControllerSegue", sender: self)
         } else {
-            self.showAlertMessage("保存数の上限に達しています。", message: "フォルダ内に保存できる数の上限[\(maxCountOfLocalSaveCombinationInFolder)]に達しているため、新規で追加できません。")
+            self.showAlertMessage("保存数の上限に達しています。", message: "フォルダ内に保存できる数の上限[\(maxCountOfLocalSaveCombinationInFolder)]に達しているため、新規で追加できません。", okHandler: nil)
         }
     }
     
@@ -125,7 +125,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     
     func loadCombinations() {
         guard let folderUUID = self.folderUUID else {
-            self.showAlertMessage("有効なフォルダに紐付いていません", message: nil)
+            self.showAlertMessage("有効なフォルダに紐付いていません", message: nil, okHandler: nil)
             return
         }
 
@@ -229,15 +229,6 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
             super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
     }
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

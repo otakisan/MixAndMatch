@@ -28,7 +28,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     
     private func showCategoryPickerViewControllerIfPossible() {
         guard let combination = self.combination else {
-            self.showAlertMessage("有効な組み合わせ情報が存在しません。", message: nil)
+            self.showAlertMessage("有効な組み合わせ情報が存在しません。", message: nil, okHandler: nil)
             return
         }
         
@@ -37,7 +37,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         if currentCountOfCombinationItems < maxCountOfCombinationItems {
             self.performSegueWithIdentifier("showCategoryPickerTableViewControllerSegue", sender: self)
         } else {
-            self.showAlertMessage("組み合わせアイテムの上限に達しています。", message: "１つの組み合わせ内に保存できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItems)]に達しているため、新規で追加できません。")
+            self.showAlertMessage("組み合わせアイテムの上限に達しています。", message: "１つの組み合わせ内に保存できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItems)]に達しているため、新規で追加できません。", okHandler: nil)
         }
     }
 
@@ -49,17 +49,35 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         self.addOrUpdateCombination()
         self.delegate?.didSaveCombination(self.combination!)
         
-        self.showAlertMessage("保存しました。", message: nil)
-        
-        if self.navigationController?.viewControllers.first == self {
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
+        self.showAlertMessage("保存しました。", message: nil, okHandler: {action in self.closeForCancel()})
     }
     
     func onTapCancelBarButtonItem(sender: UIBarButtonItem) {
+        self.closeForCancel()
+    }
+    
+    func onTapCancelOnCreateNewBarButtonItem(sender: UIBarButtonItem) {
+        // 離れるときに未保存であれば、注意を促す
+        if self.combination?.realm == nil {
+            self.showOkCancelAlertMessage("まだ保存されていません。", message: "編集内容が保存されていませんが、前の画面に戻りますか？",
+                okHandler: {action in
+                    self.closeForCancel()
+                }, cancelHandler: nil)
+        } else {
+            self.closeForCancel()
+        }
+    }
+    
+    private func closeForCancel() {
         self.delegate?.didCancelCombination(self.combination!)
+        self.close()
+    }
+    
+    private func close() {
         if self.navigationController?.viewControllers.first == self {
             self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     
@@ -79,20 +97,21 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        if self.navigationController?.viewControllers.first == self {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelBarButtonItem:")
-        }
-        
         // 存在しない時は新規
         if self.combination == nil {
             // 新規の場合は、編集ボタン＋保存ボタン
             self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
+            // 左ボタンもカスタムに差し替え、未保存時の処理を実施可能とする
+            // 新規時のキャンセルボタン
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelOnCreateNewBarButtonItem:")
 
             // 空データを設定
             self.combination = Combination()
         } else {
             // 更新の場合は、保存ボタンは不要
             self.navigationItem.rightBarButtonItem = self.editButtonItem()
+            // 更新時のキャンセルボタン
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelBarButtonItem:")
 
             // 存在する場合は、設定済みアイテムからカテゴリを洗い出す
             self.combination?.combinationItems.forEach{print("category : \($0.category)")}
@@ -105,13 +124,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // TODO: 初回だけに限定したほうがよい？？
-        //self.selectCombinationItems()
     }
     
     func selectCombinationItems() {
@@ -213,7 +225,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             self.targetCategoryNameForAddItem = self.categoriesForEdit[indexPath.section - 1].name
             self.tableView.setEditing(false, animated: true)
         } else {
-            self.showAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。")
+            self.showAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。", okHandler: nil)
         }
     }
 

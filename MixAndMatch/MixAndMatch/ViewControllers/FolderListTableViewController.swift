@@ -68,7 +68,7 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         if currentCountOfFolder < maxCountOfLocalSaveFolder {
             self.showCreateNewFolderPrompt()
         }else{
-            self.showAlertMessage("保存数の上限に達しています。", message: "保存数の上限[\(maxCountOfLocalSaveFolder)]に達しているため、新規で追加できません。")
+            self.showAlertMessage("保存数の上限に達しています。", message: "保存数の上限[\(maxCountOfLocalSaveFolder)]に達しているため、新規で追加できません。", okHandler: nil)
         }
     }
         
@@ -135,19 +135,6 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-
-    // MARK: - Table view data source
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("folderListTableViewCell", forIndexPath: indexPath)
