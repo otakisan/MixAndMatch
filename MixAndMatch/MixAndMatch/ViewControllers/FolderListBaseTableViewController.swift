@@ -12,6 +12,7 @@ import RealmSwift
 class FolderListBaseTableViewController: UITableViewController {
     
     var folders : [Folder] = []
+    var notIncludeFolderUUID = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,7 @@ class FolderListBaseTableViewController: UITableViewController {
     private func loadFolders() {
         if let realm = try? Realm() {
             print(realm.path)
-            self.folders = realm.objects(Folder).filter({ (dir) -> Bool in true})
+            self.folders = realm.objects(Folder).filter("uuid != %@", self.notIncludeFolderUUID).map{$0}
         }
     }
     

@@ -283,6 +283,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         // Set up the detail view controller to show.
         let folderPickerTableViewController = FolderPickerTableViewController.forCombinations(combinations)
         folderPickerTableViewController.delegate = self
+        folderPickerTableViewController.notIncludeFolderUUID = self.folderUUID ?? ""
         
         let newNV = UINavigationController(rootViewController: folderPickerTableViewController)
         newNV.toolbarHidden = false
