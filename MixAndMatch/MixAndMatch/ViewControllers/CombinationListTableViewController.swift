@@ -140,7 +140,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
 
         if let realm = try? Realm() {
             // TODO: Results<Combination>のまま保持するのが、よい？
-            let results = realm.objects(Combination).filter("folder.uuid = '\(folderUUID)'")
+            let results = realm.objects(Combination).filter("folder.uuid = '\(folderUUID)'").sorted("createdAt", ascending: false)
             self.combinations = results.map{$0}
             let _ = self.combinations.forEach({ (combo) -> () in
                 let _ = combo.combinationItems.map{print($0.name)}
@@ -283,8 +283,27 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
             self.pushFolderPickerTableViewController([self.combinations[indexPath.row]])
         }
         moveAction.backgroundColor = .grayColor()
-        
-        return [deleteAction, moveAction]
+
+        let copyAction = UITableViewRowAction(style: .Default, title: "複製") { (action, indexPath) -> Void in
+            self.tableView.setEditing(false, animated: true)
+            self.copyCombination(self.combinations[indexPath.row], completionHandler: {
+                self.loadCombinations()
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+            })
+        }
+        copyAction.backgroundColor = UIColor.lightGrayColor()
+
+        return [deleteAction, moveAction, copyAction]
+    }
+    
+    private func copyCombination(srcCombination : Combination, completionHandler : (() -> Void)?) {
+        let _ = try? srcCombination.realm?.write{
+            let copied = Combination(value: srcCombination)
+            copied.uuid = NSUUID().UUIDString
+            copied.createdAt = NSDate()
+            srcCombination.realm?.add(copied)
+            completionHandler?()
+        }
     }
     
     func deleteCombination(combination : Combination) {
