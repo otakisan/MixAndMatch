@@ -11,6 +11,11 @@ import RealmSwift
 
 class CombinationListTableViewController: CombinationListBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, CombinationListFilteredTableViewControllerDelegate, FolderPickerTableViewControllerDelegate {
 
+    struct ToolBarItemId {
+        static let moveBarButtonItem = 101
+        static let deleteBarButtonItem = 102
+    }
+    
     @IBAction func onTapNewCombinationBarButtonItem(sender: UIBarButtonItem) {
         self.showCombinationEditViewControllerIfPossible()
     }
@@ -79,6 +84,10 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         // 最初はdisableで。選択したらenable。選択を外して選択数ゼロになったらdisable（メモアプリだと、全件対象で実行）
         let moveBarButtonItem = UIBarButtonItem(title: "移動...", style: .Plain, target: self, action: "onTapMoveBarButtonItem:")
         let deleteBarButtonItem = UIBarButtonItem(title: "削除", style: .Plain, target: self, action: "onTapDeleteBarButtonItem:")
+        moveBarButtonItem.enabled = false
+        deleteBarButtonItem.enabled = false
+        moveBarButtonItem.tag = ToolBarItemId.moveBarButtonItem
+        deleteBarButtonItem.tag = ToolBarItemId.deleteBarButtonItem
         self.toolbarItems?.insert(moveBarButtonItem, atIndex: 0)
         self.toolbarItems?.insert(deleteBarButtonItem, atIndex: (self.toolbarItems?.count ?? 1) - 1)
     }
@@ -225,11 +234,24 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.editing {
+            self.enableEditingToolBarItems(true)
         } else {
             super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
     }
 
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.editing {
+            if tableView.indexPathsForSelectedRows == nil {
+                self.enableEditingToolBarItems(false)
+            }
+        }
+    }
+    
+    private func enableEditingToolBarItems(enabled : Bool) {
+        self.toolbarItems?.filter{$0.tag == ToolBarItemId.moveBarButtonItem || $0.tag == ToolBarItemId.deleteBarButtonItem}.forEach{$0.enabled = enabled}
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
