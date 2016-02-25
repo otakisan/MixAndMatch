@@ -20,4 +20,8 @@ class Folder: Object {
     override static func primaryKey() -> String? {
         return "uuid"
     }
+
+    override static func indexedProperties() -> [String] {
+        return ["name"]
+    }
 }

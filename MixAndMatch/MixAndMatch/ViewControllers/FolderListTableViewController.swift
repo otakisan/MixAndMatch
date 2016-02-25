@@ -140,7 +140,7 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         let cell = tableView.dequeueReusableCellWithIdentifier("folderListTableViewCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = self.folders[indexPath.row].name
+        self.setCellText(cell, text: self.folders[indexPath.row].name)
         cell.detailTextLabel?.text = "\(self.folders[indexPath.row].combinations.count)"
 
         return cell
@@ -149,19 +149,21 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
+        self.forEachCells { (indexPath, cell) -> Void in
+            self.setCellText(cell, text: self.folders[indexPath.row].name)
+        }
+    }
+    
+    private func setCellText(cell : UITableViewCell, text : String) {
         if editing {
             // 編集モード時に下線を引くことにより、タップによるアクションが存在することを示唆する
-            self.forEachCells({ (indexPath, cell) -> Void in
-                cell.textLabel?.attributedText = NSAttributedString(string: self.folders[indexPath.row].name, attributes: [
-                    NSForegroundColorAttributeName : UIColor.blueColor(),
-                    NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
-                    ])
-            })
+            cell.textLabel?.attributedText = NSAttributedString(string: text, attributes: [
+                NSForegroundColorAttributeName : UIColor.blueColor(),
+                NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
+                ])
         } else {
-            self.forEachCells({ (indexPath, cell) -> Void in
-                cell.textLabel?.attributedText = nil
-                cell.textLabel?.text = self.folders[indexPath.row].name
-            })
+            cell.textLabel?.attributedText = nil
+            cell.textLabel?.text = text
         }
     }
     

@@ -392,7 +392,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                 combinationItem.localFileURL = photoLocalId
                 combinationItem.category = category
                 realm.add(combinationItem)
-                category.combinationItems.append(combinationItem)
                 realm.add(category, update: true)
             })
         }

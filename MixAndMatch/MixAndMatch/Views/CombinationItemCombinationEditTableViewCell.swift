@@ -49,11 +49,30 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
     func showAlertAndDeleteCombinationItem(indexPath : NSIndexPath) {
         let alert = UIAlertController(title: "アイテムを削除しますか？", message: nil, preferredStyle: .Alert)
         let yesAction = UIAlertAction(title: "削除します", style: .Default) { (action) -> Void in
+            let removed = self.combinationItems.removeAtIndex(indexPath.row)
+            print("removing item from the category : \(removed)")
+            // 選択されているものを削除する場合は、別のものを選択する
+            // なければ、未選択とする
+            if self.selectedCombinationItem?.uuid == removed.uuid {
+                if let first = self.combinationItems.first {
+                    self.setSelectedCombinationItem(first)
+                } else {
+                    self.selectedCombinationItem = nil
+                }
+            }
+            
             if let realm = try? Realm() {
                 let _ = try? realm.write({ () -> Void in
-                    let removed = self.combinationItems.removeAtIndex(indexPath.row)
-                    print("removing item from the category : \(removed)")
-                    removed.category?.combinationItems.removeAtIndex(indexPath.row)
+                    // TODO: 削除対象を、親モデルから一括で削除するというのは、なんか一発で書けそうだけど…
+                    // 現在編集中の組み合わせ以外で、当該アイテムを選択したら削除する
+                    let combinations = realm.objects(Combination).filter("ANY combinationItems.uuid = %@", removed.uuid)
+                    combinations.forEach({ (combi) -> () in
+                        if let index = combi.combinationItems.indexOf({$0.uuid == removed.uuid}) {
+                            combi.combinationItems.removeAtIndex(index)
+                        }
+                    })
+                    removed.category = nil
+                    realm.delete(removed)
                     self.combinationItemCollectionView.reloadData()
                 })
             }

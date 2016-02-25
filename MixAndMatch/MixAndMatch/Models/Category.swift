@@ -12,9 +12,15 @@ import RealmSwift
 class Category: Object {
     dynamic var uuid = ""
     dynamic var name = ""
-    let combinationItems = List<CombinationItem>()
+    var combinationItems: [CombinationItem] {
+        return linkingObjects(CombinationItem.self, forProperty: "category")
+    }
     
     override static func primaryKey() -> String? {
         return "uuid"
+    }
+    
+    override static func indexedProperties() -> [String] {
+        return ["name"]
     }
 }
