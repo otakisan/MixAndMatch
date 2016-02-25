@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class CombinationListTableViewController: CombinationListBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, CombinationListFilteredTableViewControllerDelegate {
+class CombinationListTableViewController: CombinationListBaseTableViewController, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, CombinationListFilteredTableViewControllerDelegate, FolderPickerTableViewControllerDelegate {
 
     @IBAction func onTapNewCombinationBarButtonItem(sender: UIBarButtonItem) {
         self.showCombinationEditViewControllerIfPossible()
@@ -44,10 +44,78 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+        self.editButtonItem().action = "overrideToggleEditing:"
         self.initializeSearchController()
         
         self.loadCombinations()
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        
+        self.toolbarItems?.last?.enabled = !editing
+        self.searchController.searchBar.userInteractionEnabled = !editing
+        self.tableView.allowsMultipleSelectionDuringEditing = editing
+        self.tableView.setEditing(editing, animated: animated)
+        super.setEditing(editing, animated: animated)
+    }
+
+    func overrideToggleEditing(barButtonItem : UIBarButtonItem) {
+        //self.performSelector("_toggleEditing:")
+        self.setEditing(!self.editing, animated: true)
+        
+        self.confiureEditingBarButtonItem(self.editing)
+    }
+
+    weak var moveBarButtonItem : UIBarButtonItem?
+    private func confiureEditingBarButtonItem(editing : Bool) {
+        if editing {
+            self.addEditingBarButtonItem()
+        } else {
+            self.removeEditingBarButtonItem()
+        }
+    }
+    
+    private func addEditingBarButtonItem() {
+        // 最初はdisableで。選択したらenable。選択を外して選択数ゼロになったらdisable（メモアプリだと、全件対象で実行）
+        let moveBarButtonItem = UIBarButtonItem(title: "移動...", style: .Plain, target: self, action: "onTapMoveBarButtonItem:")
+        let deleteBarButtonItem = UIBarButtonItem(title: "削除", style: .Plain, target: self, action: "onTapDeleteBarButtonItem:")
+        self.toolbarItems?.insert(moveBarButtonItem, atIndex: 0)
+        self.toolbarItems?.insert(deleteBarButtonItem, atIndex: (self.toolbarItems?.count ?? 1) - 1)
+    }
+    
+    private func removeEditingBarButtonItem() {
+        // TODO: 削除すべきものがあったら、削除するのロジックに置き換える
+        if self.toolbarItems?.count == 4 {
+            self.toolbarItems?.removeFirst()
+            self.toolbarItems?.removeAtIndex((self.toolbarItems?.count ?? 2) - 2)
+        }
+    }
+    
+    func onTapMoveBarButtonItem(barButtonItem : UIBarButtonItem) {
+        if let selectRows = self.tableView.indexPathsForSelectedRows {
+            let selectItems = selectRows.map{self.combinations[$0.row]}
+            self.pushFolderPickerTableViewController(selectItems)
+        }
+    }
+    
+    func onTapDeleteBarButtonItem(barButtonItem : UIBarButtonItem) {
+        
+        self.showOkCancelAlertMessage("本当に削除しますか？", message: "完全に削除され、元に戻せません。",
+            okHandler: { alertAction in
+                if let deletingPaths = self.tableView.indexPathsForSelectedRows {
+                    deletingPaths.reverse().forEach {
+                        let removed = self.combinations.removeAtIndex($0.row)
+                        let _ = try? removed.realm?.write{
+                            removed.realm?.delete(removed)
+                        }
+                    }
+                    self.tableView.deleteRowsAtIndexPaths(deletingPaths, withRowAnimation: .Automatic)
+                }
+                
+                self.tableView.endEditing(false)
+            },
+            cancelHandler: nil
+        )
     }
 
     override func didReceiveMemoryWarning() {
@@ -155,6 +223,12 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     }
     // MARK: - Table view data source
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.editing {
+        } else {
+            super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+        }
+    }
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 //        // #warning Incomplete implementation, return the number of sections
 //        return 0
@@ -183,18 +257,21 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     }
     */
 
-    
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .Default, title: "削除") { (action, indexPath) -> Void in
             self.showOkCancelAlertMessage("本当に削除しますか？", message: "完全に削除され、元に戻せません。",
                 okHandler: { alertAction in self.deleteCombination(self.combinations[indexPath.row]) },
-                cancelHandler: { alertAction in self.tableView.setEditing(false, animated: false) }
-            )
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+                cancelHandler: { alertAction in self.tableView.setEditing(false, animated: false) })
+        }
+        deleteAction.backgroundColor = .redColor()
+        
+        let moveAction = UITableViewRowAction(style: .Default, title: "移動") { (action, indexPath) -> Void in
+            // カテゴリピッカー表示
+            self.pushFolderPickerTableViewController([self.combinations[indexPath.row]])
+        }
+        moveAction.backgroundColor = .grayColor()
+        
+        return [deleteAction, moveAction]
     }
     
     func deleteCombination(combination : Combination) {
@@ -210,15 +287,16 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         }
     }
     
-//    func deleteCombinationAtIndexPath(indexPath : NSIndexPath) {
-//        if let realm = try? Realm() {
-//            let _ = try? realm.write({ () -> Void in
-//                let removed = self.combinations.removeAtIndex(indexPath.row)
-//                realm.delete(removed)
-//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            })
-//        }
-//    }
+    func pushFolderPickerTableViewController(combinations :[Combination]) {
+        
+        // Set up the detail view controller to show.
+        let folderPickerTableViewController = FolderPickerTableViewController.forCombinations(combinations)
+        folderPickerTableViewController.delegate = self
+        
+        let newNV = UINavigationController(rootViewController: folderPickerTableViewController)
+        newNV.toolbarHidden = false
+        self.presentViewController(newNV, animated: true, completion: nil)
+    }
 
     /*
     // Override to support rearranging the table view.
@@ -270,5 +348,15 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     func deleteActionViaFilteredList(combination: Combination){
         self.deleteCombination(combination)
         self.updateSearchResultsForSearchController(self.searchController)
+    }
+    
+    func didSelectFolder(combinations: [Combination], folder: Folder) {
+        combinations.forEach{ targetCombi in
+            if let index = self.combinations.indexOf({targetCombi.uuid == $0.uuid} ){
+                let removed = self.combinations.removeAtIndex(index)
+                let _ = try? removed.realm?.write{ removed.folder = folder }
+                self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+            }
+        }
     }
 }

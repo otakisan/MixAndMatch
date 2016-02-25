@@ -185,6 +185,55 @@
             </objects>
             <point key="canvasLocation" x="1587" y="1763"/>
         </scene>
+        <!--フォルダ-->
+        <scene sceneID="g7a-Io-jbs">
+            <objects>
+                <tableViewController storyboardIdentifier="FolderPickerTableViewController" id="V10-2b-XrJ" customClass="FolderPickerTableViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CJE-ja-m8I">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="folderPickerTableViewCell" textLabel="SNT-N7-VLO" detailTextLabel="moJ-Jx-6lT" style="IBUITableViewCellStyleValue1" id="jO6-Yp-QgK">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jO6-Yp-QgK" id="g62-tr-OHp">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SNT-N7-VLO">
+                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="moJ-Jx-6lT">
+                                            <rect key="frame" x="543.5" y="12" width="41.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="V10-2b-XrJ" id="TP2-rh-75F"/>
+                            <outlet property="delegate" destination="V10-2b-XrJ" id="VKl-rO-ZVD"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="フォルダ" id="R5f-QC-kNx">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="oaD-Fu-X5p"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w4p-Pf-o5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2289" y="215"/>
+        </scene>
         <!--Combination List Table View Controller-->
         <scene sceneID="Q7l-nn-YvB">
             <objects>
@@ -218,6 +267,7 @@
                     </toolbarItems>
                     <connections>
                         <segue destination="bfU-gT-f89" kind="show" identifier="showCombinationEditTableViewControllerSegue" id="kud-UN-UTw"/>
+                        <segue destination="V10-2b-XrJ" kind="show" identifier="showFolderPickerTableViewControllerSegue" id="TIf-AG-5NT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i0m-o6-MmG" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -148,7 +148,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseId, forIndexPath: indexPath)
 
         // Configure the cell...
-        //if let basicInfoCell = cell as?
         if indexPath.section == 0, let nameCell = cell as? CombinationEditTableViewCell {
             nameCell.delegate = self
             nameCell.configure(self.combination!)
@@ -169,8 +168,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         return cell
     }
     
-
-    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
@@ -188,9 +185,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
 
         let addCombinationItemAction = UITableViewRowAction(style: .Normal, title: "追加"){(action, indexPath) in
             self.showImagePickerViewControllerIfPossible(indexPath)
-//            self.showImagePickerViewController(.PhotoLibrary)
-//            self.targetCategoryNameForAddItem = self.categoriesForEdit[indexPath.section - 1].name
-//            self.tableView.setEditing(false, animated: true)
         }
         addCombinationItemAction.backgroundColor = UIColor.greenColor()
         
@@ -525,11 +519,6 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                     self.combination?.createdAt = NSDate(timeIntervalSinceNow: 0)
                 }
                 self.combination?.folder = realm.objects(Folder).filter("uuid = %@", self.folderUUID ?? "").first
-                if let index = self.combination?.folder?.combinations.indexOf({$0.uuid == self.combination?.uuid}) {
-                    self.combination?.folder?.combinations.replace(index, object: self.combination!)
-                } else {
-                    self.combination?.folder?.combinations.append(self.combination!)
-                }
                 
                 print("save combination : \(self.combination)")
                 

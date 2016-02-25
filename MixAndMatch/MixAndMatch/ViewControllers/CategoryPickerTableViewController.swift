@@ -160,6 +160,10 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         return cell
     }
     
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.accessoryType = self.tableView.indexPathsForSelectedRows?.filter{$0 == indexPath}.count > 0 ? .Checkmark : .None
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = UITableViewCellAccessoryType.Checkmark
     }

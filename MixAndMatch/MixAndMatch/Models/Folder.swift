@@ -13,7 +13,9 @@ class Folder: Object {
     dynamic var uuid = ""
     dynamic var name = ""
     dynamic var createdAt = NSDate(timeIntervalSince1970: 0)
-    let combinations = List<Combination>()
+    var combinations: [Combination] {
+        return linkingObjects(Combination.self, forProperty: "folder")
+    }
     
     override static func primaryKey() -> String? {
         return "uuid"
