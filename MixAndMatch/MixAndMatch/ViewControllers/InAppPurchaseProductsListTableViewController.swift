@@ -9,11 +9,21 @@
 import UIKit
 import StoreKit
 
+let purchasedStatusAvailableProducts = "AVAILABLE PRODUCTS"
+let purchasedStatusPurchased = "PURCHASED"
+let purchasedStatusRestored = "RESTORED"
+
 class InAppPurchaseProductsListTableViewController: UITableViewController {
     
     var restoreWasCalled = false
     var availableProducts : [(name : String, elements : [SKProduct])] = []
     var purchasedProducts : [(name : String, elements : [SKPaymentTransaction])] = []
+    
+    let nameTable : [String:String] = [
+        purchasedStatusAvailableProducts : "購入可能",
+        purchasedStatusPurchased : "購入済",
+        purchasedStatusRestored : "復元済"
+    ]
 
     @IBAction func onTapRestoreBarButtonItem(sender: UIBarButtonItem) {
         AppStoreObserver.sharedInstance.restore()
@@ -86,15 +96,15 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section < self.availableProducts.count ? self.availableProducts[section].name :
+        return self.stringForDisplaySectionName(section < self.availableProducts.count ? self.availableProducts[section].name :
         (section < (self.availableProducts.count + self.purchasedProducts.count)) ?
-            self.purchasedProducts[section - self.availableProducts.count].name : nil
+            self.purchasedProducts[section - self.availableProducts.count].name : nil)
     }
-
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         // Only available products can be bought
-        if self.availableProducts.count > indexPath.section && self.availableProducts[indexPath.section].name == "AVAILABLE PRODUCTS" {
+        if self.availableProducts.count > indexPath.section && self.availableProducts[indexPath.section].name == purchasedStatusAvailableProducts {
             let product = self.availableProducts[indexPath.section].elements[indexPath.row]
             // Attempt to purchase the tapped product
             AppStoreObserver.sharedInstance.buy(product)
@@ -148,6 +158,15 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
     }
     */
 
+    private func stringForDisplaySectionName(keyString : String?) -> String? {
+        var displayName : String?
+        if let keyString = keyString {
+            displayName = self.nameTable[keyString]
+        }
+        
+        return displayName
+    }
+    
     // Fetch product information
     
     // Retrieve product information from the App Store
@@ -182,20 +201,20 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         if self.restoreWasCalled &&
         AppStoreObserver.sharedInstance.hasRestoredProducts && AppStoreObserver.sharedInstance.hasPurchasedProducts {
             dataSource = [
-                (name : "PURCHASED", elements : AppStoreObserver.sharedInstance.productsPurchased),
-                (name : "RESTORED", elements : AppStoreObserver.sharedInstance.productsRestored)
+                (name : purchasedStatusPurchased, elements : AppStoreObserver.sharedInstance.productsPurchased),
+                (name : purchasedStatusRestored, elements : AppStoreObserver.sharedInstance.productsRestored)
             ]
         }
         else if self.restoreWasCalled && AppStoreObserver.sharedInstance.hasRestoredProducts
         {
             dataSource = [
-                (name : "RESTORED", elements : AppStoreObserver.sharedInstance.productsRestored)
+                (name : purchasedStatusRestored, elements : AppStoreObserver.sharedInstance.productsRestored)
             ]
         }
         else if AppStoreObserver.sharedInstance.hasPurchasedProducts
         {
             dataSource = [
-                (name : "PURCHASED", elements : AppStoreObserver.sharedInstance.productsPurchased)
+                (name : purchasedStatusPurchased, elements : AppStoreObserver.sharedInstance.productsPurchased)
             ]
         }
         
