@@ -25,6 +25,7 @@ class CombinationListTableViewCell: UITableViewCell {
     @IBOutlet weak var combinationItemsCollectionView: UICollectionView!
     
     private var combination : Combination!
+    var delegate : CombinationListTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -79,6 +80,10 @@ extension CombinationListTableViewCell : UICollectionViewDataSource {
 
 extension CombinationListTableViewCell : UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
-        //self.delegate?.didSelectCombinationItem(self.combinationItems[indexPath.row])
+        self.delegate?.didSelectCombinationItem(self.combination, combinationItem: self.combination.combinationItems[indexPath.row])
     }
+}
+
+protocol CombinationListTableViewCellDelegate {
+    func didSelectCombinationItem(combination : Combination, combinationItem : CombinationItem)
 }

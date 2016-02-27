@@ -46,6 +46,7 @@
 		169B02431C676A9B00194927 /* MixAndMatch-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 169B02421C676A9B00194927 /* MixAndMatch-Bridging-Header.m */; };
 		169B02471C67867100194927 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 169B02451C67867100194927 /* libcrypto.a */; };
 		169B02481C67867100194927 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 169B02461C67867100194927 /* libssl.a */; };
+		16A665461C81943F00413A3F /* PhotosUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A665451C81943F00413A3F /* PhotosUtility.swift */; };
 		16A901311C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A9012F1C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift */; };
 		16A901321C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A901301C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib */; };
 		16A901361C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */; };
@@ -206,6 +207,7 @@
 		169B02421C676A9B00194927 /* MixAndMatch-Bridging-Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MixAndMatch-Bridging-Header.m"; sourceTree = "<group>"; };
 		169B02451C67867100194927 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		169B02461C67867100194927 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		16A665451C81943F00413A3F /* PhotosUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosUtility.swift; sourceTree = "<group>"; };
 		16A9012F1C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationListCollectionViewCell.swift; sourceTree = "<group>"; };
 		16A901301C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CombinationListCollectionViewCell.xib; sourceTree = "<group>"; };
 		16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchaseProductsListTableViewController.swift; sourceTree = "<group>"; };
@@ -407,11 +409,11 @@
 				167856611C543B8700DC21E8 /* FolderListBaseTableViewController.swift */,
 				167856681C54522400DC21E8 /* FolderListTableViewController.swift */,
 				1689FA8A1C79A6E8007E47FF /* FolderPickerTableViewController.swift */,
+				168D917B1C54F36F0069D44D /* CategoryPickerTableViewController.swift */,
 				168D915F1C5488A70069D44D /* CombinationListBaseTableViewController.swift */,
 				168D91611C549E130069D44D /* CombinationListTableViewController.swift */,
 				168D91681C54AC8C0069D44D /* CombinationListFilteredTableViewController.swift */,
 				168D91731C54C7220069D44D /* CombinationEditTableViewController.swift */,
-				168D917B1C54F36F0069D44D /* CategoryPickerTableViewController.swift */,
 				168D917D1C550A190069D44D /* CombinationItemViewController.swift */,
 				16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */,
 			);
@@ -447,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				168D916B1C54B9960069D44D /* DateUtility.swift */,
+				16A665451C81943F00413A3F /* PhotosUtility.swift */,
 				1640D3911C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift */,
 			);
 			path = Utilities;
@@ -646,6 +649,7 @@
 				168D91601C5488A70069D44D /* CombinationListBaseTableViewController.swift in Sources */,
 				16A901361C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift in Sources */,
 				167856651C543D1E00DC21E8 /* Folder.swift in Sources */,
+				16A665461C81943F00413A3F /* PhotosUtility.swift in Sources */,
 				168D917A1C54E6760069D44D /* CombinationItemCollectionViewCell.swift in Sources */,
 				168D91741C54C7220069D44D /* CombinationEditTableViewController.swift in Sources */,
 				168D917E1C550A190069D44D /* CombinationItemViewController.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CombinationListBaseTableViewController: UITableViewController, CombinationEditTableViewControllerDelegate {
+class CombinationListBaseTableViewController: UITableViewController, CombinationEditTableViewControllerDelegate, CombinationListTableViewCellDelegate {
     
     struct Constants {
         struct Nib {
@@ -65,6 +65,7 @@ class CombinationListBaseTableViewController: UITableViewController, Combination
 
         // Configure the cell...
         cell.configure(self.combinations[indexPath.row])
+        cell.delegate = self
 
         return cell
     }
@@ -138,6 +139,8 @@ class CombinationListBaseTableViewController: UITableViewController, Combination
         if let editorVC = segue.destinationViewController as? CombinationEditTableViewController {
             editorVC.delegate = self
             editorVC.folderUUID = self.folderUUID
+        } else if let combinationItemVC = segue.destinationViewController as? CombinationItemViewController {
+            combinationItemVC.combinationItem = sender as? CombinationItem
         }
     }
     
@@ -147,5 +150,10 @@ class CombinationListBaseTableViewController: UITableViewController, Combination
     
     func didCancelCombination(combination : Combination){
         
+    }
+    
+    func didSelectCombinationItem(combination : Combination, combinationItem : CombinationItem){
+        // 一旦保持するのも違うと思うし、senderだからselfなんだろうけど、一旦渡したいものを渡すようにする
+        self.performSegueWithIdentifier("showCombinationItemViewControllerSegue", sender: combinationItem)
     }
 }

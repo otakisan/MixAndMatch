@@ -54,6 +54,7 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "名前"
             textField.delegate = self
+            textField.returnKeyType = .Done
         }
         
         alertController.addAction(alertActionSave)
@@ -128,6 +129,7 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
             textField.text = currentFolder.name
             textField.placeholder = "名前"
             textField.delegate = self
+            textField.returnKeyType = .Done
         }
         
         alertController.addAction(alertActionSave)

@@ -154,14 +154,14 @@
                                             <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WW9-u1-pqz">
                                             <rect key="frame" x="15" y="25.5" width="30.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -205,7 +205,7 @@
                                             <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="moJ-Jx-6lT">
@@ -233,6 +233,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4p-Pf-o5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2289" y="215"/>
+        </scene>
+        <!--Combination Item View Controller-->
+        <scene sceneID="N1i-V8-T7S">
+            <objects>
+                <viewController id="57F-c7-e6g" customClass="CombinationItemViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BVE-4H-8yg"/>
+                        <viewControllerLayoutGuide type="bottom" id="k4S-iv-JR3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SzA-0d-CJp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hmQ-wC-bWQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="49R-bA-qom">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="600" id="iJE-TV-UwI"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="49R-bA-qom" firstAttribute="leading" secondItem="hmQ-wC-bWQ" secondAttribute="leading" id="66G-Ym-e1S"/>
+                                    <constraint firstItem="49R-bA-qom" firstAttribute="centerX" secondItem="hmQ-wC-bWQ" secondAttribute="centerX" id="d5y-i9-JLv"/>
+                                    <constraint firstItem="49R-bA-qom" firstAttribute="top" secondItem="hmQ-wC-bWQ" secondAttribute="top" id="kNZ-Y0-4Sm"/>
+                                    <constraint firstAttribute="trailing" secondItem="49R-bA-qom" secondAttribute="trailing" id="nAc-Xp-etJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="49R-bA-qom" secondAttribute="bottom" constant="-64" id="sVH-Ls-aiO"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hmQ-wC-bWQ" firstAttribute="leading" secondItem="SzA-0d-CJp" secondAttribute="leading" id="8B0-Mp-9fE"/>
+                            <constraint firstAttribute="bottom" secondItem="hmQ-wC-bWQ" secondAttribute="bottom" id="SOf-RR-qHm"/>
+                            <constraint firstAttribute="trailing" secondItem="hmQ-wC-bWQ" secondAttribute="trailing" id="kip-po-j2g"/>
+                            <constraint firstItem="hmQ-wC-bWQ" firstAttribute="top" secondItem="SzA-0d-CJp" secondAttribute="top" id="q7t-Qa-rey"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="combinationItemImageView" destination="49R-bA-qom" id="UzB-ze-rMg"/>
+                        <outlet property="combinationItemScrollView" destination="hmQ-wC-bWQ" id="9Mf-JT-0ZJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Bq-2e-I3j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2289" y="-482"/>
         </scene>
         <!--Combination List Table View Controller-->
         <scene sceneID="Q7l-nn-YvB">
@@ -268,6 +316,7 @@
                     <connections>
                         <segue destination="bfU-gT-f89" kind="show" identifier="showCombinationEditTableViewControllerSegue" id="kud-UN-UTw"/>
                         <segue destination="V10-2b-XrJ" kind="show" identifier="showFolderPickerTableViewControllerSegue" id="TIf-AG-5NT"/>
+                        <segue destination="57F-c7-e6g" kind="show" identifier="showCombinationItemViewControllerSegue" id="1tZ-9h-gjm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i0m-o6-MmG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -283,7 +332,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="combinationEditTableViewCell" id="1b2-fk-E9Z" customClass="CombinationEditTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="combinationEditTableViewCell" id="1b2-fk-E9Z" customClass="CombinationEditTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1b2-fk-E9Z" id="YnE-2r-qEE">
@@ -293,7 +342,7 @@
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="組み合わせの名称を入力してください。" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J5d-7L-1Yw">
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -446,27 +495,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAT-1e-W04" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3007" y="934"/>
-        </scene>
-        <!--Combination Item View Controller-->
-        <scene sceneID="Mh8-tt-uR5">
-            <objects>
-                <viewController id="Tno-BC-PEI" customClass="CombinationItemViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nia-G9-ujw"/>
-                        <viewControllerLayoutGuide type="bottom" id="LWt-tZ-5el"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DWz-zX-leY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems>
-                        <barButtonItem systemItem="camera" id="NJq-vr-1n0"/>
-                    </toolbarItems>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A9w-MF-CTp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3007" y="1712"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tEC-DS-ZIb">

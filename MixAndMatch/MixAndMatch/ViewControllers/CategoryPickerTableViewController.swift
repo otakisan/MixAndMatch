@@ -92,6 +92,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "名前"
             textField.delegate = self
+            textField.returnKeyType = .Done
         }
         
         alertController.addAction(alertActionSave)
@@ -248,6 +249,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
             textField.text = currentCategory.name
             textField.placeholder = "名前"
             textField.delegate = self
+            textField.returnKeyType = .Done
         }
         
         alertController.addAction(alertActionSave)
