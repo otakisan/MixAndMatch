@@ -12,6 +12,7 @@ import RealmSwift
 class CategoryPickerTableViewController: UITableViewController, UITextFieldDelegate {
     
     var categories : [Category] = []
+    var notIncludeFolderUUIDs : [String] = []
 
     var delegate : CategoryPickerTableViewControllerDelegate?
     
@@ -143,8 +144,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
     
     func loadCategories() {
         if let realm = try? Realm() {
-            print(realm.path)
-            self.categories = realm.objects(Category).filter({ (dir) -> Bool in true})
+            self.categories = realm.objects(Category).filter("NOT (uuid IN %@)", self.notIncludeFolderUUIDs).map{$0}
         }
     }
 
