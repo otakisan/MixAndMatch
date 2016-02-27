@@ -64,12 +64,6 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return section < self.availableProducts.count ? self.availableProducts[section].elements.count :
             (section < (self.availableProducts.count + self.purchasedProducts.count)) ? self.purchasedProducts[section - self.availableProducts.count].elements.count : 0
-//        return section < self.availableProducts.count ? self.availableProducts.reduce(0, combine: { (prev, elem) -> Int in
-//            return prev + elem.elements.count
-//        }) : (section < (self.availableProducts.count + self.purchasedProducts.count) ?
-//        self.purchasedProducts.reduce(0, combine: { (prev, elem) -> Int in
-//            return prev + elem.elements.count
-//        }) : 0)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -105,6 +99,8 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
             // Attempt to purchase the tapped product
             AppStoreObserver.sharedInstance.buy(product)
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
 
     /*
