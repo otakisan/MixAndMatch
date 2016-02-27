@@ -47,6 +47,9 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         // カテゴリの削除は、まだ有効化しないでおく
         //self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
         
+        // 余分な罫線を消す
+        self.hideExtraFooterLine()
+
         self.loadCategories()
     }
 

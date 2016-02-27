@@ -23,6 +23,9 @@ class FolderListBaseTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.navigationItem.title = "フォルダ"
+        
+        // 余分な罫線を消す
+        self.hideExtraFooterLine()
     }
 
     override func viewWillAppear(animated: Bool) {

@@ -33,4 +33,11 @@ extension UITableViewController {
             }
         }
     }
+    
+    /**
+     データのない部分の罫線を隠します
+     */
+    func hideExtraFooterLine() {
+        self.tableView.tableFooterView = UIView()
+    }
 }

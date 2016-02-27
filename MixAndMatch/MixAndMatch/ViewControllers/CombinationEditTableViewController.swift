@@ -97,11 +97,13 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
+        // 余分な罫線を消す
+        self.hideExtraFooterLine()
+
         // 存在しない時は新規
         if self.combination == nil {
-            // 新規の場合は、編集ボタン＋保存ボタン
-            self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
-            // 左ボタンもカスタムに差し替え、未保存時の処理を実施可能とする
+            // 新規の場合は、右に保存ボタンあり（IB上で定義）
+            // 左ボタンはカスタムに差し替え、未保存時の処理を実施可能とする
             // 新規時のキャンセルボタン
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelOnCreateNewBarButtonItem:")
 
@@ -109,7 +111,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             self.combination = Combination()
         } else {
             // 更新の場合は、保存ボタンは不要
-            self.navigationItem.rightBarButtonItem = self.editButtonItem()
+            self.navigationItem.rightBarButtonItem = nil
             // 更新時のキャンセルボタン
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelBarButtonItem:")
 
@@ -198,7 +200,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         let addCombinationItemAction = UITableViewRowAction(style: .Normal, title: "追加"){(action, indexPath) in
             self.showImagePickerViewControllerIfPossible(indexPath)
         }
-        addCombinationItemAction.backgroundColor = UIColor.greenColor()
+        addCombinationItemAction.backgroundColor = UIColor.lightGrayColor()
         
         let deleteAction = UITableViewRowAction(style: .Default, title: "削除"){(action, indexPath) in
             let removed = self.categoriesForEdit.removeAtIndex(indexPath.section - 1)
@@ -213,7 +215,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         deleteAction.backgroundColor = UIColor.redColor()
         
         // 詳細情報は一旦非表示
-        return [/*detailAction,*/ addCombinationItemAction, deleteAction]
+        return [/*detailAction,*/ deleteAction, addCombinationItemAction]
     }
     
     private func showImagePickerViewControllerIfPossible(indexPath : NSIndexPath) {

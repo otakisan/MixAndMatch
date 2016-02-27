@@ -38,6 +38,9 @@ class CombinationListBaseTableViewController: UITableViewController, Combination
         self.tableView.estimatedRowHeight = 132
         
         self.navigationItem.title = self.folderName
+        
+        // 余分な罫線を消す
+        self.hideExtraFooterLine()
     }
 
     override func didReceiveMemoryWarning() {

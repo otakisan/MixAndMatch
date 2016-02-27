@@ -31,6 +31,10 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // 余分な罫線を消す
+        self.hideExtraFooterLine()
+        
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector: "handleProductRequestNotification:",
             name: AppStoreManager.sharedInstance.IAPProductRequestNotification,
