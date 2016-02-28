@@ -315,6 +315,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                 if let index = self.combination?.combinationItems.indexOf({ (comboItem) -> Bool in comboItem.category?.uuid == combinationItem.category?.uuid}) {
                     self.combination?.combinationItems.replace(index, object: combinationItem)
                 } else {
+                    // 画面上のカテゴリーの順番と、組み合わせが持つ組み合わせアイテムの順番を揃える
                     if let index = self.categoriesForEdit.indexOf({$0.uuid == combinationItem.category?.uuid}) {
                         var existingCount = 0
                         for innerIndex in 0..<index {
