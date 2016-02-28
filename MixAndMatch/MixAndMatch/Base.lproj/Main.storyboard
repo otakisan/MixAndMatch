@@ -234,6 +234,34 @@
             </objects>
             <point key="canvasLocation" x="2289" y="215"/>
         </scene>
+        <!--Rearrange Table View Controller-->
+        <scene sceneID="QTN-Wi-15e">
+            <objects>
+                <tableViewController storyboardIdentifier="RearrangeTableViewController" id="V9j-tN-6eK" customClass="RearrangeTableViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="39Y-Tx-cLm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RearrangeTableViewCell" id="phD-dc-4qS">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="phD-dc-4qS" id="Hql-QE-vE2">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="V9j-tN-6eK" id="2mG-w8-Yh1"/>
+                            <outlet property="delegate" destination="V9j-tN-6eK" id="atm-af-PsA"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YWc-fN-Yfs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3007" y="215"/>
+        </scene>
         <!--Combination Item View Controller-->
         <scene sceneID="N1i-V8-T7S">
             <objects>
@@ -422,6 +450,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
+                        <barButtonItem enabled="NO" title="並び替え" id="xad-o5-k5d">
+                            <connections>
+                                <action selector="onTapRearrangeBarButtonItem:" destination="bfU-gT-f89" id="zoT-Dk-9nY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="HF1-TA-Ons"/>
                         <barButtonItem title="カテゴリー追加" id="N68-vY-ei4">
                             <connections>
@@ -437,6 +470,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="rearrangeBarButtonItem" destination="xad-o5-k5d" id="7on-Zn-Sj5"/>
                         <segue destination="1sY-Wf-LDy" kind="show" identifier="showCategoryPickerTableViewControllerSegue" id="zB2-OV-vU9"/>
                     </connections>
                 </tableViewController>

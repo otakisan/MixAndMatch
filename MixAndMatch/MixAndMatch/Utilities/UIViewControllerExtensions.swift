@@ -21,6 +21,14 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "キャンセル", style: .Cancel, handler: cancelHandler))
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func close(animated: Bool, completion: (() -> Void)?) {
+        if self.navigationController?.viewControllers.first == self {
+            self.dismissViewControllerAnimated(animated, completion: completion)
+        } else {
+            self.navigationController?.popToViewController(self, animated: animated)
+        }
+    }
 }
 
 extension UITableViewController {

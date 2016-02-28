@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import Photos
 
-class CombinationEditTableViewController: UITableViewController, CombinationItemCombinationEditTableViewCellDelegate, CategoryPickerTableViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CombinationEditTableViewCellDelegate {
+class CombinationEditTableViewController: UITableViewController, CombinationItemCombinationEditTableViewCellDelegate, CategoryPickerTableViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CombinationEditTableViewCellDelegate, RearrangeTableViewControllerDelegate {
 
     struct StoryboardConstants {
         static let storyboardName = "Main"
@@ -22,8 +22,25 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     var folderUUID : String?
     var delegate : CombinationEditTableViewControllerDelegate?
     
+    @IBOutlet weak var rearrangeBarButtonItem: UIBarButtonItem!
+    @IBAction func onTapRearrangeBarButtonItem(sender: UIBarButtonItem) {
+        if self.categoriesForEdit.count == self.combination?.combinationItems.count {
+            self.showRearrangeTableViewController()
+        } else {
+            self.showAlertMessage("カテゴリーにアイテムを追加してください。", message: "並び替えの前に、カテゴリーにアイテムを追加してください。", okHandler: nil)
+        }
+    }
+    
     @IBAction func onTapAddCategory(sender: UIBarButtonItem) {
         self.showCategoryPickerViewControllerIfPossible()
+    }
+    
+    private func showRearrangeTableViewController() {
+        let rearrangeVC = RearrangeTableViewController.forTargets(self.categoriesForEdit.map{$0.name})
+        rearrangeVC.delegate = self
+        
+        let nv = UINavigationController(rootViewController: rearrangeVC)
+        self.presentViewController(nv, animated: true, completion: nil)
     }
     
     private func showCategoryPickerViewControllerIfPossible() {
@@ -141,6 +158,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        self.rearrangeBarButtonItem.enabled = self.categoriesForEdit.count > 0
         return 1 + self.categoriesForEdit.count
     }
 
@@ -166,6 +184,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             nameCell.delegate = self
             nameCell.configure(self.combination!)
         } else if indexPath.section > 0, let itemCell = cell as? CombinationItemCombinationEditTableViewCell {
+            itemCell.clear()
             itemCell.delegate = self
             if self.categoriesForEdit[indexPath.section - 1].combinationItems.count == 0 {
                 cell.textLabel?.text = "(アイテムがありません。)"
@@ -296,7 +315,16 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                 if let index = self.combination?.combinationItems.indexOf({ (comboItem) -> Bool in comboItem.category?.uuid == combinationItem.category?.uuid}) {
                     self.combination?.combinationItems.replace(index, object: combinationItem)
                 } else {
-                    self.combination?.combinationItems.append(combinationItem)
+                    if let index = self.categoriesForEdit.indexOf({$0.uuid == combinationItem.category?.uuid}) {
+                        var existingCount = 0
+                        for innerIndex in 0..<index {
+                            if self.combination?.combinationItems.filter({$0.category?.uuid == self.categoriesForEdit[innerIndex].uuid}).count > 0 {
+                                existingCount++
+                            }
+                        }
+                        
+                        self.combination?.combinationItems.insert(combinationItem, atIndex: existingCount)
+                    }
                 }
             })
         }
@@ -372,6 +400,21 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         }
         
         self.targetCategoryNameForAddItem = nil
+    }
+    
+    func didCancelRearrange(){
+        
+    }
+    
+    func didDoneRearrange(rearrangeActions : [(from : Int, to : Int)]){
+        rearrangeActions.forEach { (from, to) -> () in
+            let _ = try? self.combination?.realm?.write({
+                self.combination?.combinationItems.move(from: from, to: to)
+            })
+        }
+        
+        self.categoriesForEdit = self.combination?.combinationItems.filter{$0.category != nil}.map{$0.category!} ?? []
+        self.tableView.reloadData()
     }
     
     func reloadCategory(categoryName : String) {

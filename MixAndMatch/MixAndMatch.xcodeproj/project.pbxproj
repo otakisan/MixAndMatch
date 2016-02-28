@@ -47,6 +47,7 @@
 		169B02471C67867100194927 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 169B02451C67867100194927 /* libcrypto.a */; };
 		169B02481C67867100194927 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 169B02461C67867100194927 /* libssl.a */; };
 		16A665461C81943F00413A3F /* PhotosUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A665451C81943F00413A3F /* PhotosUtility.swift */; };
+		16A665481C82D7B600413A3F /* RearrangeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A665471C82D7B600413A3F /* RearrangeTableViewController.swift */; };
 		16A901311C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A9012F1C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift */; };
 		16A901321C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A901301C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib */; };
 		16A901361C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */; };
@@ -208,6 +209,7 @@
 		169B02451C67867100194927 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		169B02461C67867100194927 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		16A665451C81943F00413A3F /* PhotosUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosUtility.swift; sourceTree = "<group>"; };
+		16A665471C82D7B600413A3F /* RearrangeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RearrangeTableViewController.swift; sourceTree = "<group>"; };
 		16A9012F1C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombinationListCollectionViewCell.swift; sourceTree = "<group>"; };
 		16A901301C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CombinationListCollectionViewCell.xib; sourceTree = "<group>"; };
 		16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchaseProductsListTableViewController.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				168D91731C54C7220069D44D /* CombinationEditTableViewController.swift */,
 				168D917D1C550A190069D44D /* CombinationItemViewController.swift */,
 				16A901351C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift */,
+				16A665471C82D7B600413A3F /* RearrangeTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				1689FA8B1C79A6E8007E47FF /* FolderPickerTableViewController.swift in Sources */,
 				168D917C1C54F36F0069D44D /* CategoryPickerTableViewController.swift in Sources */,
 				169B02431C676A9B00194927 /* MixAndMatch-Bridging-Header.m in Sources */,
+				16A665481C82D7B600413A3F /* RearrangeTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

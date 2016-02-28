@@ -117,6 +117,12 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
         cell.visibleCheckmark = selected
     }
     
+    func clear() {
+        self.selectedCombinationItem = nil
+        self.combinationItems.removeAll()
+        self.combinationItemCollectionView.reloadData()
+    }
+    
     private func setSelectedCombinationItem(item : CombinationItem) {
         self.selectedCombinationItem = item
         self.delegate?.didSelectCombinationItem(item)
