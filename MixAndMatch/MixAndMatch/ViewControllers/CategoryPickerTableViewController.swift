@@ -190,8 +190,13 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
             self.tableView.setEditing(false, animated: true)
         }
         modifyAction.backgroundColor = UIColor.lightGrayColor()
+        let deleteAction = UITableViewRowAction(style: .Normal, title: "削除"){(action, indexPath) in
+            self.deleteCategoryIfNotUsed(indexPath)
+            self.tableView.setEditing(false, animated: true)
+        }
+        deleteAction.backgroundColor = UIColor.redColor()
 
-        return [modifyAction]
+        return [deleteAction, modifyAction]
     }
     
     /*
@@ -225,6 +230,20 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
 
+    private func deleteCategoryIfNotUsed(indexPath: NSIndexPath) {
+        if self.categories[indexPath.row].combinationItems.count == 0 {
+            self.showOkCancelAlertMessage("削除しますか？", message: "\(self.categories[indexPath.row].name)を削除します。", okHandler: {action in
+                let removed = self.categories.removeAtIndex(indexPath.row)
+                let _ = try? removed.realm?.write({ () -> Void in
+                    removed.realm?.delete(removed)
+                })
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }, cancelHandler: nil)
+        } else {
+            self.showAlertMessage("削除できません。", message: "\(self.categories[indexPath.row].name)は使用されているため、削除できません。", okHandler: nil)
+        }
+    }
+    
     // アラート表示は共通化したいけど、呼び出し元との依存を切り離せる？
     // それと、UIAlertControllerがメモリーリークするらしい（すでに直った？）
     func showRenameFolderPrompt(currentCategory : Category) {
