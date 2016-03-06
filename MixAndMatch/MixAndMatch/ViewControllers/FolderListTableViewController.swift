@@ -122,7 +122,11 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         alertActionSave.enabled = currentFolder.name != ""
         self.alertActionSave = alertActionSave
         
-        let alertActionCancel = UIAlertAction(title: "キャンセル", style: .Cancel, handler: nil)
+        let alertActionCancel = UIAlertAction(title: "キャンセル", style: .Cancel, handler: { action in
+            if let index = self.folders.indexOf({$0.uuid == currentFolder.uuid}) {
+                self.tableView.deselectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false)
+            }
+        })
         
         //textfiledの追加
         alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in

@@ -383,7 +383,7 @@
                                     <outlet property="nameTextField" destination="J5d-7L-1Yw" id="Xx4-iq-e9h"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="combinationItemCombinationEditTableViewCell" rowHeight="132" id="TG7-lb-IV1" customClass="CombinationItemCombinationEditTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="combinationItemCombinationEditTableViewCell" rowHeight="132" id="TG7-lb-IV1" customClass="CombinationItemCombinationEditTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="132"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TG7-lb-IV1" id="1d5-pA-H1a">

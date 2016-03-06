@@ -409,9 +409,13 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     
     func didDoneRearrange(rearrangeActions : [(from : Int, to : Int)]){
         rearrangeActions.forEach { (from, to) -> () in
-            let _ = try? self.combination?.realm?.write({
+            if let realm = self.combination?.realm {
+                let _ = try? realm.write({
+                    self.combination?.combinationItems.move(from: from, to: to)
+                })
+            } else {
                 self.combination?.combinationItems.move(from: from, to: to)
-            })
+            }
         }
         
         self.categoriesForEdit = self.combination?.combinationItems.filter{$0.category != nil}.map{$0.category!} ?? []
