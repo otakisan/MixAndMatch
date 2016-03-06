@@ -13,6 +13,7 @@ class Folder: Object {
     dynamic var uuid = ""
     dynamic var name = ""
     dynamic var createdAt = NSDate(timeIntervalSince1970: 0)
+    dynamic var updatedAt = NSDate(timeIntervalSince1970: 0)
     var combinations: [Combination] {
         return linkingObjects(Combination.self, forProperty: "folder")
     }

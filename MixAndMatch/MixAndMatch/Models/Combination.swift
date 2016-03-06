@@ -13,6 +13,7 @@ class Combination: Object {
     dynamic var uuid = ""
     dynamic var name = ""
     dynamic var createdAt = NSDate(timeIntervalSince1970: 0)
+    dynamic var updatedAt = NSDate(timeIntervalSince1970: 0)
     dynamic var folder: Folder? // Properties can be optional
     let combinationItems = List<CombinationItem>()
 

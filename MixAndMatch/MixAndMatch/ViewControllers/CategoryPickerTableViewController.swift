@@ -128,6 +128,8 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
             let newCategory = Category()
             newCategory.uuid = NSUUID().UUIDString
             newCategory.name = categoryName
+            newCategory.createdAt = NSDate()
+            newCategory.updatedAt = newCategory.createdAt
             print("NSUUID().UUIDString : \(NSUUID().UUIDString)")
             print("uuid : \(newCategory.uuid)")
             
@@ -251,7 +253,10 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         
         let alertActionSave = UIAlertAction(title: "保存", style: UIAlertActionStyle.Default) { (action) -> Void in
             if let newCategoryNameText = alertController.textFields?.first?.text, let realm = try? Realm() {
-                let _ = try? realm.write {currentCategory.name = newCategoryNameText}
+                let _ = try? realm.write {
+                    currentCategory.name = newCategoryNameText
+                    currentCategory.updatedAt = NSDate()
+                }
             }
             
             self.alertActionSave = nil

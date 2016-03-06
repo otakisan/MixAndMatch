@@ -140,7 +140,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
 
         if let realm = try? Realm() {
             // TODO: Results<Combination>のまま保持するのが、よい？
-            let results = realm.objects(Combination).filter("folder.uuid = '\(folderUUID)'").sorted("createdAt", ascending: false)
+            let results = realm.objects(Combination).filter("folder.uuid = '\(folderUUID)'").sorted("updatedAt", ascending: false)
             self.combinations = results.map{$0}
             let _ = self.combinations.forEach({ (combo) -> () in
                 let _ = combo.combinationItems.map{print($0.name)}
@@ -301,6 +301,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
             let copied = Combination(value: srcCombination)
             copied.uuid = NSUUID().UUIDString
             copied.createdAt = NSDate()
+            copied.updatedAt = copied.createdAt
             srcCombination.realm?.add(copied)
             completionHandler?()
         }

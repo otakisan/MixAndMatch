@@ -99,6 +99,8 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
             let newFolder = Folder()
             newFolder.uuid = NSUUID().UUIDString
             newFolder.name = folderName
+            newFolder.createdAt = NSDate()
+            newFolder.updatedAt = NSDate()
             print("NSUUID().UUIDString : \(NSUUID().UUIDString)")
             print("uuid : \(newFolder.uuid)")
             
@@ -113,7 +115,10 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         
         let alertActionSave = UIAlertAction(title: "保存", style: UIAlertActionStyle.Default) { (action) -> Void in
             if let newFolderNameText = alertController.textFields?.first?.text, let realm = try? Realm() {
-                let _ = try? realm.write { currentFolder.name = newFolderNameText }
+                let _ = try? realm.write {
+                    currentFolder.name = newFolderNameText
+                    currentFolder.updatedAt = NSDate()
+                }
             }
             
             self.alertActionSave = nil

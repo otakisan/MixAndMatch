@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="132"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="131.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Combination Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Z5-le-TpS">
@@ -57,8 +57,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="combinationItemsCollectionView" destination="4sm-rw-chd" id="qnq-vI-Tl9"/>
-                <outlet property="createdAtLabel" destination="lOi-n7-ZUZ" id="UIB-tn-5kP"/>
                 <outlet property="nameLabel" destination="8Z5-le-TpS" id="DM1-4U-WCE"/>
+                <outlet property="updatedAtLabel" destination="lOi-n7-ZUZ" id="Cz2-bT-cbQ"/>
             </connections>
             <point key="canvasLocation" x="227" y="375"/>
         </tableViewCell>

@@ -226,7 +226,10 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             if let removingIndex = self.combination?.combinationItems.indexOf({$0.category?.uuid == removed.uuid}) {
                 // Combinationg側から削除する
                 // CombinationItem側からdeleteすると、それ自体が削除されてしまう
-                let _ = try? self.combination?.realm?.write {self.combination?.combinationItems.removeAtIndex(removingIndex)}
+                let _ = try? self.combination?.realm?.write {
+                    self.combination?.combinationItems.removeAtIndex(removingIndex)
+                    self.combination?.updatedAt = NSDate()
+                }
             }
             tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
             self.tableView.setEditing(false, animated: true)
@@ -313,6 +316,9 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         if let realm = try? Realm() {
             let _ = try? realm.write({ () -> Void in
                 if let index = self.combination?.combinationItems.indexOf({ (comboItem) -> Bool in comboItem.category?.uuid == combinationItem.category?.uuid}) {
+                    if combinationItem.uuid != self.combination?.combinationItems[index].uuid {
+                        self.combination?.updatedAt = NSDate()
+                    }
                     self.combination?.combinationItems.replace(index, object: combinationItem)
                 } else {
                     // 画面上のカテゴリーの順番と、組み合わせが持つ組み合わせアイテムの順番を揃える
@@ -325,6 +331,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                         }
                         
                         self.combination?.combinationItems.insert(combinationItem, atIndex: existingCount)
+                        self.combination?.updatedAt = NSDate()
                     }
                 }
             })
@@ -412,9 +419,11 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             if let realm = self.combination?.realm {
                 let _ = try? realm.write({
                     self.combination?.combinationItems.move(from: from, to: to)
+                    self.combination?.updatedAt = NSDate()
                 })
             } else {
                 self.combination?.combinationItems.move(from: from, to: to)
+                self.combination?.updatedAt = NSDate()
             }
         }
         
@@ -442,6 +451,8 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                 combinationItem.name = itemName
                 combinationItem.localFileURL = photoLocalId
                 combinationItem.category = category
+                combinationItem.createdAt = NSDate()
+                combinationItem.updatedAt = combinationItem.createdAt
                 realm.add(combinationItem)
                 realm.add(category, update: true)
             })
@@ -579,8 +590,10 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                 if self.combination?.uuid == "" {
                     self.combination?.uuid = NSUUID().UUIDString
                     self.combination?.createdAt = NSDate(timeIntervalSinceNow: 0)
+                    self.combination?.updatedAt = self.combination?.createdAt ?? NSDate()
                 }
                 self.combination?.folder = realm.objects(Folder).filter("uuid = %@", self.folderUUID ?? "").first
+                self.combination?.folder?.updatedAt = self.combination?.updatedAt ?? NSDate()
                 
                 print("save combination : \(self.combination)")
                 
@@ -593,6 +606,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         if let realm = try? Realm() {
             let _ = try? realm.write({ () -> Void in
                 self.combination?.name = changedText
+                self.combination?.updatedAt = NSDate()
             })
         }
     }

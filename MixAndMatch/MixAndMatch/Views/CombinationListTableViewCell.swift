@@ -21,7 +21,7 @@ class CombinationListTableViewCell: UITableViewCell {
     }
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var createdAtLabel: UILabel!
+    @IBOutlet weak var updatedAtLabel: UILabel!
     @IBOutlet weak var combinationItemsCollectionView: UICollectionView!
     
     private var combination : Combination!
@@ -49,10 +49,10 @@ class CombinationListTableViewCell: UITableViewCell {
         self.combinationItemsCollectionView.delegate = self
         
         self.nameLabel.text = combination.name
-        if NSDate(timeIntervalSinceNow: -86400).compare(combination.createdAt) == NSComparisonResult.OrderedAscending {
-            self.createdAtLabel.text = "24時間以内に作成 \(DateUtility.localTimeString(combination.createdAt))"
+        if NSDate(timeIntervalSinceNow: -86400).compare(combination.updatedAt) == NSComparisonResult.OrderedAscending {
+            self.updatedAtLabel.text = "24時間以内に更新 \(DateUtility.localTimeString(combination.updatedAt))"
         }else{
-            self.createdAtLabel.text = DateUtility.localDateString(combination.createdAt)
+            self.updatedAtLabel.text = DateUtility.localDateString(combination.updatedAt)
         }
         
         self.combinationItemsCollectionView.reloadData()

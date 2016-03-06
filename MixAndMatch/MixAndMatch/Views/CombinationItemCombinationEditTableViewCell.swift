@@ -69,6 +69,7 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
                     combinations.forEach({ (combi) -> () in
                         if let index = combi.combinationItems.indexOf({$0.uuid == removed.uuid}) {
                             combi.combinationItems.removeAtIndex(index)
+                            combi.updatedAt = NSDate()
                         }
                     })
                     removed.category = nil

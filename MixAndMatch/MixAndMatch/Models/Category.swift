@@ -12,6 +12,8 @@ import RealmSwift
 class Category: Object {
     dynamic var uuid = ""
     dynamic var name = ""
+    dynamic var createdAt = NSDate(timeIntervalSince1970: 0)
+    dynamic var updatedAt = NSDate(timeIntervalSince1970: 0)
     var combinationItems: [CombinationItem] {
         return linkingObjects(CombinationItem.self, forProperty: "category")
     }

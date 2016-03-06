@@ -14,6 +14,8 @@ class CombinationItem: Object {
     dynamic var name = ""
     dynamic var localFileURL = ""
     dynamic var category : Category?
+    dynamic var createdAt = NSDate(timeIntervalSince1970: 0)
+    dynamic var updatedAt = NSDate(timeIntervalSince1970: 0)
     
     override static func primaryKey() -> String? {
         return "uuid"
