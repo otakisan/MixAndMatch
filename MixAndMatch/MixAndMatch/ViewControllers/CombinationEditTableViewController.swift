@@ -168,7 +168,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "基本情報" : self.categoriesForEdit[section - 1].name
+        return section == 0 ? "タイトル" : self.categoriesForEdit[section - 1].name
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

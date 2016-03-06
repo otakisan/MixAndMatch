@@ -10,9 +10,9 @@ import UIKit
 
 let unlimitedCount = Int.max
 let defalutMaxCountOfLocalSaveFolder = 5
-let defalutMaxCountOfLocalSaveCombinationInFolder = 4
+let defalutMaxCountOfLocalSaveCombinationInFolder = 10
 let defalutMaxCountOfCombinationItemsInCategory = 10
-let defalutMaxCountOfCombinationItems = 6
+let defalutMaxCountOfCombinationItems = 5
 
 class AppContext: NSObject {
     static let sharedInstance = AppContext()
