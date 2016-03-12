@@ -21,8 +21,8 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
     
     let nameTable : [String:String] = [
         purchasedStatusAvailableProducts : "購入可能",
-        purchasedStatusPurchased : "購入済",
-        purchasedStatusRestored : "復元済"
+        purchasedStatusPurchased : "購入処理完了",
+        purchasedStatusRestored : "復元処理完了"
     ]
 
     @IBAction func onTapRestoreBarButtonItem(sender: UIBarButtonItem) {
@@ -82,7 +82,7 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         // Configure the cell...
         if self.availableProducts.count > indexPath.section {
             let skProduct : SKProduct = self.availableProducts[indexPath.section].elements[indexPath.row]
-            cell.textLabel?.text = skProduct.localizedTitle
+            cell.textLabel?.text = "\(skProduct.localizedTitle) (\(skProduct.priceLocale.objectForKey(NSLocaleCurrencySymbol) as? String ?? "")\(skProduct.price))"
             cell.detailTextLabel?.text = skProduct.localizedDescription
             cell.accessoryType = InAppPurchaseProductManager.sharedInstance.purchased(skProduct.productIdentifier) ? .Checkmark : .None
         } else if (self.availableProducts.count + self.purchasedProducts.count) > indexPath.section {
@@ -99,6 +99,10 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         return self.stringForDisplaySectionName(section < self.availableProducts.count ? self.availableProducts[section].name :
         (section < (self.availableProducts.count + self.purchasedProducts.count)) ?
             self.purchasedProducts[section - self.availableProducts.count].name : nil)
+    }
+    
+    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return section == 0 ? "ご購入の確認が取れたものには、右側に✔︎が表示されます。以前にご購入済で、✔︎が表示されていない場合には、右上の復元ボタンを押してください。" : nil
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
