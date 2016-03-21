@@ -338,6 +338,18 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         }
     }
     
+    func didDeselectCombinationItem(combinationItem : CombinationItem){
+        if let removingIndex = self.combination?.combinationItems.indexOf({$0.uuid == combinationItem.uuid}) {
+            // 新規作成の場合もあるため、Realmオブジェクトを明示的に生成する
+            if let realm = try? Realm() {
+                let _ = try? realm.write {
+                    self.combination?.combinationItems.removeAtIndex(removingIndex)
+                    self.combination?.updatedAt = NSDate()
+                }
+            }
+        }
+    }
+    
     func requestForPresentViewController(viewController : UIViewController){
         self.presentViewController(viewController, animated: true, completion: nil)
     }

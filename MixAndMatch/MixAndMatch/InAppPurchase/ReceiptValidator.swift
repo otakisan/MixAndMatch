@@ -53,7 +53,7 @@ class ReceiptValidator: NSObject {
     
     // in your project define those two somewhere as such:
     //
-    let global_bundleVersion                        = "0.1.0.16" //iOSの場合は、CFBundleVersion
+    let global_bundleVersion                        = "1.0.1.2" //iOSの場合は、CFBundleVersion
     let global_bundleIdentifier                     = "jp.cafe.MixAndMatch"
     
     let kReceiptBundleIdentifier                    = "BundleIdentifier"

@@ -14,6 +14,9 @@ let defalutMaxCountOfLocalSaveCombinationInFolder = 10
 let defalutMaxCountOfCombinationItemsInCategory = 10
 let defalutMaxCountOfCombinationItems = 5
 
+let categoryCreatorTypeKey = "creatorType"
+let categoryCreatorTypeUser = "user"
+
 class AppContext: NSObject {
     static let sharedInstance = AppContext()
     

@@ -57,7 +57,7 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
                 if let first = self.combinationItems.first {
                     self.setSelectedCombinationItem(first)
                 } else {
-                    self.selectedCombinationItem = nil
+                    self.setDeselectedCombinationItem(removed)
                 }
             }
             
@@ -128,6 +128,11 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
         self.selectedCombinationItem = item
         self.delegate?.didSelectCombinationItem(item)
     }
+    
+    private func setDeselectedCombinationItem(item : CombinationItem) {
+        self.selectedCombinationItem = nil
+        self.delegate?.didDeselectCombinationItem(item)
+    }
 }
 
 extension CombinationItemCombinationEditTableViewCell : UICollectionViewDataSource {
@@ -178,5 +183,6 @@ extension CombinationItemCombinationEditTableViewCell : UICollectionViewDelegate
 
 protocol CombinationItemCombinationEditTableViewCellDelegate {
     func didSelectCombinationItem(combinationItem : CombinationItem)
+    func didDeselectCombinationItem(combinationItem : CombinationItem)
     func requestForPresentViewController(viewController : UIViewController)
 }

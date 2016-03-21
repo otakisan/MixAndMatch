@@ -56,20 +56,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SKPaymentQueue.defaultQueue().removeTransactionObserver(AppStoreObserver.sharedInstance)
     }
 
+    /**
+     schemaVersion
+     3: App Store 1.0.0
+     */
     private func migrateRealm() {
         let config = Realm.Configuration(
             // 新しいスキーマバージョンを設定します。以前のバージョンより大きくなければなりません。
             // （スキーマバージョンを設定したことがなければ、最初は0が設定されています）
-            schemaVersion: 3,
+            schemaVersion: 4,
             
             // マイグレーション処理を記述します。古いスキーマバージョンのRealmを開こうとすると
             // 自動的にマイグレーションが実行されます。
             migrationBlock: { migration, oldSchemaVersion in
                 // 最初のマイグレーションの場合、`oldSchemaVersion`は0です
-                if (oldSchemaVersion < 3) {
+                if (oldSchemaVersion < 4) {
                     // 何もする必要はありません！
                     // Realmは自動的に新しく追加されたプロパティと、削除されたプロパティを認識します。
                     // そしてディスク上のスキーマを自動的にアップデートします。
+                    migration.enumerate(Category.className(), { (oldObject, newObject) -> Void in
+                        newObject![categoryCreatorTypeKey] = categoryCreatorTypeUser
+                    })
                 }
         })
         

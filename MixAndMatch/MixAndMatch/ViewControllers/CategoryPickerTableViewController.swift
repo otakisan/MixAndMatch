@@ -128,6 +128,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
             let newCategory = Category()
             newCategory.uuid = NSUUID().UUIDString
             newCategory.name = categoryName
+            newCategory.creatorType = categoryCreatorTypeUser
             newCategory.createdAt = NSDate()
             newCategory.updatedAt = newCategory.createdAt
             print("NSUUID().UUIDString : \(NSUUID().UUIDString)")
