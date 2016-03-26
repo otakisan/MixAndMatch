@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Photos
 
 class CategoryPickerTableViewController: UITableViewController, UITextFieldDelegate {
     
@@ -47,6 +48,10 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // カテゴリの削除は、まだ有効化しないでおく
         //self.navigationItem.rightBarButtonItems?.append(self.editButtonItem())
+        
+        // サムネイル画像のサイズによって、罫線の始点にばらつきが出るので、左端に揃え、色を薄めにする
+        self.tableView.separatorInset = UIEdgeInsetsZero
+        self.tableView.separatorColor = UIColor(colorLiteralRed: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0)
         
         // 余分な罫線を消す
         self.hideExtraFooterLine()
@@ -162,7 +167,21 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         let cell = tableView.dequeueReusableCellWithIdentifier("categoryPickerTableViewCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = self.categories[indexPath.row].name
+        //cell.textLabel?.text = self.categories[indexPath.row].name
+        // Configure the cell...
+        let category = self.self.categories[indexPath.row]
+        cell.textLabel?.text = category.name
+        cell.detailTextLabel?.text = "\(category.combinationItems.count)"
+        cell.imageView?.image = UIImage()
+        if let img = category.combinationItems.first?.localFileURL {
+            PhotosUtility.requestImageForLocalIdentifier(img, targetSize: CGSizeMake(cell.frame.height*3, cell.frame.height*3), contentMode: .AspectFit, options: nil, resultHandler: { (image, info) -> Void in
+                if let degradedKey = info![PHImageResultIsDegradedKey] where degradedKey as! NSNumber == 0, let image = image {
+                    cell.imageView?.image = image
+                }
+            })
+        }
+        cell.imageView?.image = ImageUtility.blankImage(CGSizeMake(cell.frame.height, cell.frame.height))
+
         self.setSelectedBackgroundView(cell)
         return cell
     }
@@ -188,7 +207,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let modifyAction = UITableViewRowAction(style: .Normal, title: "変更"){(action, indexPath) in
+        let modifyAction = UITableViewRowAction(style: .Normal, title: "名称変更"){(action, indexPath) in
             self.showRenameFolderPrompt(self.categories[indexPath.row])
             self.tableView.setEditing(false, animated: true)
         }

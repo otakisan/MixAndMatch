@@ -59,6 +59,7 @@
 		16A901391C66C5E30031B25C /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A901381C66C5E30031B25C /* AppStoreManager.swift */; };
 		16A9013B1C66DC010031B25C /* AppStoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A9013A1C66DC010031B25C /* AppStoreObserver.swift */; };
 		16A9013D1C66FE960031B25C /* ProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16A9013C1C66FE960031B25C /* ProductIds.plist */; };
+		16B0A28D1CA672E200079F59 /* CategoryPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0A28C1CA672E200079F59 /* CategoryPickerTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +227,7 @@
 		16A901381C66C5E30031B25C /* AppStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
 		16A9013A1C66DC010031B25C /* AppStoreObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreObserver.swift; sourceTree = "<group>"; };
 		16A9013C1C66FE960031B25C /* ProductIds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProductIds.plist; sourceTree = "<group>"; };
+		16B0A28C1CA672E200079F59 /* CategoryPickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,6 +460,7 @@
 				16A901301C5D8D2C0031B25C /* CombinationListCollectionViewCell.xib */,
 				1689723E1C95705700BBA648 /* MyCategoryListTableViewCell.swift */,
 				168972421C9580FF00BBA648 /* CombinationItemsOfMyCategoryCollectionViewCell.swift */,
+				16B0A28C1CA672E200079F59 /* CategoryPickerTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				168972431C9580FF00BBA648 /* CombinationItemsOfMyCategoryCollectionViewCell.swift in Sources */,
 				167856671C54450900DC21E8 /* Combination.swift in Sources */,
 				168D91701C54BFF60069D44D /* Category.swift in Sources */,
+				16B0A28D1CA672E200079F59 /* CategoryPickerTableViewCell.swift in Sources */,
 				1689FA8B1C79A6E8007E47FF /* FolderPickerTableViewController.swift in Sources */,
 				1689723B1C9563C000BBA648 /* MyCategoryListTableViewController.swift in Sources */,
 				168972411C957B5800BBA648 /* CombinationItemsOfMyCategoryCollectionViewController.swift in Sources */,

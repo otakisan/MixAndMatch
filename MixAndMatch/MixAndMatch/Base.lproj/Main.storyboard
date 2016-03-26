@@ -560,7 +560,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="HF1-TA-Ons"/>
-                        <barButtonItem title="カテゴリー追加" id="N68-vY-ei4">
+                        <barButtonItem title="アイテム追加" id="N68-vY-ei4">
                             <connections>
                                 <action selector="onTapAddCategory:" destination="bfU-gT-f89" id="txv-Vb-6zv"/>
                             </connections>
@@ -591,7 +591,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryPickerTableViewCell" textLabel="oGz-pX-6CY" style="IBUITableViewCellStyleDefault" id="cht-lC-Ord">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryPickerTableViewCell" textLabel="oGz-pX-6CY" style="IBUITableViewCellStyleDefault" id="cht-lC-Ord" customClass="CategoryPickerTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cht-lC-Ord" id="VE6-0I-Rjr">

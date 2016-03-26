@@ -187,7 +187,11 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             itemCell.clear()
             itemCell.delegate = self
             if self.categoriesForEdit[indexPath.section - 1].combinationItems.count == 0 {
-                cell.textLabel?.text = "(アイテムがありません。)"
+                cell.textLabel?.font = UIFont.systemFontOfSize(14.0)
+                cell.textLabel?.textColor = UIColor.darkTextColor()
+                cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.lineBreakMode = .ByWordWrapping
+                cell.textLabel?.text = "左へスワイプして、「アイテムを追加」を押し、カテゴリーにアイテムを追加してください。追加したアイテムは、長押しすることで削除できます。"
             } else {
                 let comboItems = self.categoriesForEdit[indexPath.section - 1].combinationItems.filter({ (item) -> Bool in
                     true
@@ -216,12 +220,12 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         }
         detailAction.backgroundColor = UIColor.lightGrayColor()
 
-        let addCombinationItemAction = UITableViewRowAction(style: .Normal, title: "追加"){(action, indexPath) in
+        let addCombinationItemAction = UITableViewRowAction(style: .Normal, title: "アイテム\nを追加"){(action, indexPath) in
             self.showImagePickerViewControllerIfPossible(indexPath)
         }
         addCombinationItemAction.backgroundColor = UIColor.lightGrayColor()
         
-        let deleteAction = UITableViewRowAction(style: .Default, title: "削除"){(action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .Default, title: "カテゴリーを\n組合せから削除"){(action, indexPath) in
             let removed = self.categoriesForEdit.removeAtIndex(indexPath.section - 1)
             if let removingIndex = self.combination?.combinationItems.indexOf({$0.category?.uuid == removed.uuid}) {
                 // Combinationg側から削除する

@@ -1,14 +1,14 @@
 //
-//  MyCategoryListTableViewCell.swift
+//  CategoryPickerTableViewCell.swift
 //  MixAndMatch
 //
-//  Created by takashi on 2016/03/13.
+//  Created by takashi on 2016/03/26.
 //  Copyright © 2016年 Takashi Ikeda. All rights reserved.
 //
 
 import UIKit
 
-class MyCategoryListTableViewCell: UITableViewCell {
+class CategoryPickerTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +20,7 @@ class MyCategoryListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -37,25 +37,16 @@ class MyCategoryListTableViewCell: UITableViewCell {
             self.imageView?.frame.size.height ?? 0
         )
         
-        // 詳細テキストの幅を先に確保
+        // 右端アクセサリーの幅を先に確保
         let margin = CGFloat(15.0)
-        let detailTextLabelWidth = CGFloat(50.0)
+        let accesaryWidth = CGFloat(30.0)
         let textLabelX = imageViewX + (self.imageView?.frame.size.width ?? 0) + margin
-        let textLabelWidth = self.frame.size.width - (textLabelX + margin + detailTextLabelWidth + margin)
+        let textLabelWidth = self.frame.size.width - (textLabelX + margin + accesaryWidth + margin)
         self.textLabel?.frame = CGRectMake(
             textLabelX,
             self.textLabel?.frame.origin.y ?? 0,
             textLabelWidth,
             self.textLabel?.frame.size.height ?? 0
         )
-        let detailTextLabelX = textLabelX + textLabelWidth + margin
-        self.detailTextLabel?.frame = CGRectMake(
-            detailTextLabelX,
-            self.detailTextLabel?.frame.origin.y ?? 0,
-            detailTextLabelWidth,
-            self.detailTextLabel?.frame.size.height ?? 0
-        )
-
     }
-
 }
