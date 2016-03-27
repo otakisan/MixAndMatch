@@ -14,6 +14,11 @@
 		1640D3A41C6FF03800A9ADA5 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1640D3A11C6FF03800A9ADA5 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1640D3A51C6FF03800A9ADA5 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1640D3A21C6FF03800A9ADA5 /* RealmSwift.framework */; };
 		1640D3A61C6FF03800A9ADA5 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1640D3A21C6FF03800A9ADA5 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		166436D51CA75626004116D0 /* MyCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166436D41CA75626004116D0 /* MyCategoryViewController.swift */; };
+		166436D71CA75846004116D0 /* MyCategoryContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166436D61CA75846004116D0 /* MyCategoryContainerViewController.swift */; };
+		166436DB1CA75AE6004116D0 /* MyCategoryCombinationItemListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166436DA1CA75AE6004116D0 /* MyCategoryCombinationItemListTableViewController.swift */; };
+		166436DD1CA76280004116D0 /* MyCategoryCombinationItemListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166436DC1CA76280004116D0 /* MyCategoryCombinationItemListTableViewCell.swift */; };
+		166436DF1CA7920F004116D0 /* MyCategoryCombinationItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166436DE1CA7920F004116D0 /* MyCategoryCombinationItemViewController.swift */; };
 		1678561E1C53A1BA00DC21E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1678561D1C53A1BA00DC21E8 /* AppDelegate.swift */; };
 		167856231C53A1BA00DC21E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 167856211C53A1BA00DC21E8 /* Main.storyboard */; };
 		167856251C53A1BA00DC21E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 167856241C53A1BA00DC21E8 /* Assets.xcassets */; };
@@ -175,6 +180,11 @@
 		1640D3911C6ED2BE00A9ADA5 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		1640D3A11C6FF03800A9ADA5 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		1640D3A21C6FF03800A9ADA5 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		166436D41CA75626004116D0 /* MyCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCategoryViewController.swift; sourceTree = "<group>"; };
+		166436D61CA75846004116D0 /* MyCategoryContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCategoryContainerViewController.swift; sourceTree = "<group>"; };
+		166436DA1CA75AE6004116D0 /* MyCategoryCombinationItemListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCategoryCombinationItemListTableViewController.swift; sourceTree = "<group>"; };
+		166436DC1CA76280004116D0 /* MyCategoryCombinationItemListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCategoryCombinationItemListTableViewCell.swift; sourceTree = "<group>"; };
+		166436DE1CA7920F004116D0 /* MyCategoryCombinationItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCategoryCombinationItemViewController.swift; sourceTree = "<group>"; };
 		1678561A1C53A1BA00DC21E8 /* MixAndMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixAndMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1678561D1C53A1BA00DC21E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		167856221C53A1BA00DC21E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -433,6 +443,10 @@
 				16A665471C82D7B600413A3F /* RearrangeTableViewController.swift */,
 				1689723A1C9563C000BBA648 /* MyCategoryListTableViewController.swift */,
 				168972401C957B5800BBA648 /* CombinationItemsOfMyCategoryCollectionViewController.swift */,
+				166436D41CA75626004116D0 /* MyCategoryViewController.swift */,
+				166436D61CA75846004116D0 /* MyCategoryContainerViewController.swift */,
+				166436DA1CA75AE6004116D0 /* MyCategoryCombinationItemListTableViewController.swift */,
+				166436DE1CA7920F004116D0 /* MyCategoryCombinationItemViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -461,6 +475,7 @@
 				1689723E1C95705700BBA648 /* MyCategoryListTableViewCell.swift */,
 				168972421C9580FF00BBA648 /* CombinationItemsOfMyCategoryCollectionViewCell.swift */,
 				16B0A28C1CA672E200079F59 /* CategoryPickerTableViewCell.swift */,
+				166436DC1CA76280004116D0 /* MyCategoryCombinationItemListTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -653,8 +668,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				168D916C1C54B9960069D44D /* DateUtility.swift in Sources */,
+				166436D51CA75626004116D0 /* MyCategoryViewController.swift in Sources */,
 				16A9013B1C66DC010031B25C /* AppStoreObserver.swift in Sources */,
 				16A901311C5D8D2C0031B25C /* CombinationListCollectionViewCell.swift in Sources */,
+				166436D71CA75846004116D0 /* MyCategoryContainerViewController.swift in Sources */,
 				1689723F1C95705700BBA648 /* MyCategoryListTableViewCell.swift in Sources */,
 				168D91761C54DE1B0069D44D /* CombinationEditTableViewCell.swift in Sources */,
 				1689723D1C956F4800BBA648 /* ImageUtility.swift in Sources */,
@@ -666,11 +683,13 @@
 				1640D38E1C6EAD6800A9ADA5 /* AppContext.swift in Sources */,
 				168D91621C549E130069D44D /* CombinationListTableViewController.swift in Sources */,
 				168D91661C54A4870069D44D /* CombinationListTableViewCell.swift in Sources */,
+				166436DD1CA76280004116D0 /* MyCategoryCombinationItemListTableViewCell.swift in Sources */,
 				168D91691C54AC8C0069D44D /* CombinationListFilteredTableViewController.swift in Sources */,
 				169B02391C6758F800194927 /* ReceiptValidator.swift in Sources */,
 				168D91781C54E0300069D44D /* CombinationItemCombinationEditTableViewCell.swift in Sources */,
 				168D91601C5488A70069D44D /* CombinationListBaseTableViewController.swift in Sources */,
 				16A901361C66C3580031B25C /* InAppPurchaseProductsListTableViewController.swift in Sources */,
+				166436DF1CA7920F004116D0 /* MyCategoryCombinationItemViewController.swift in Sources */,
 				167856651C543D1E00DC21E8 /* Folder.swift in Sources */,
 				16A665461C81943F00413A3F /* PhotosUtility.swift in Sources */,
 				168D917A1C54E6760069D44D /* CombinationItemCollectionViewCell.swift in Sources */,
@@ -682,6 +701,7 @@
 				167856671C54450900DC21E8 /* Combination.swift in Sources */,
 				168D91701C54BFF60069D44D /* Category.swift in Sources */,
 				16B0A28D1CA672E200079F59 /* CategoryPickerTableViewCell.swift in Sources */,
+				166436DB1CA75AE6004116D0 /* MyCategoryCombinationItemListTableViewController.swift in Sources */,
 				1689FA8B1C79A6E8007E47FF /* FolderPickerTableViewController.swift in Sources */,
 				1689723B1C9563C000BBA648 /* MyCategoryListTableViewController.swift in Sources */,
 				168972411C957B5800BBA648 /* CombinationItemsOfMyCategoryCollectionViewController.swift in Sources */,

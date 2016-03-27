@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Realm.Configuration(
             // 新しいスキーマバージョンを設定します。以前のバージョンより大きくなければなりません。
             // （スキーマバージョンを設定したことがなければ、最初は0が設定されています）
-            schemaVersion: 4,
+            schemaVersion: 5,
             
             // マイグレーション処理を記述します。古いスキーマバージョンのRealmを開こうとすると
             // 自動的にマイグレーションが実行されます。
@@ -77,6 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     migration.enumerate(Category.className(), { (oldObject, newObject) -> Void in
                         newObject![categoryCreatorTypeKey] = categoryCreatorTypeUser
                     })
+                }
+                if (oldSchemaVersion < 5) {
+                   
                 }
         })
         

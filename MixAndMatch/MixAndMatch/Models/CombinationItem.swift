@@ -12,6 +12,7 @@ import RealmSwift
 class CombinationItem: Object {
     dynamic var uuid = ""
     dynamic var name = ""
+    dynamic var memo = ""
     dynamic var localFileURL = ""
     dynamic var category : Category?
     dynamic var createdAt = NSDate(timeIntervalSince1970: 0)

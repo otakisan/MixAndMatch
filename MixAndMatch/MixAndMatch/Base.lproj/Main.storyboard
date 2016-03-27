@@ -226,7 +226,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="AXj-ha-WR5" kind="show" id="XD0-Y4-5nL"/>
+                                    <segue destination="j0P-VS-Lzh" kind="show" id="cDz-S7-7kq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -235,6 +235,14 @@
                             <outlet property="delegate" destination="7Ju-uJ-elb" id="Qcf-Jh-kCW"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="yjz-fC-Z2E"/>
+                        <barButtonItem title="新規カテゴリー" id="uod-x9-lbn">
+                            <connections>
+                                <action selector="onTapCreateNewCategoryBarButtonItem:" destination="7Ju-uJ-elb" id="MYp-Eg-xIZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9qs-1f-6hO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -256,7 +264,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CombinationItemsOfMyCategoryCollectionViewCell" id="v0z-YW-r38" customClass="CombinationItemsOfMyCategoryCollectionViewCell" customModule="MixAndMatch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -288,6 +296,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jus-9K-CsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2281" y="2542"/>
+        </scene>
+        <!--My Category Container View Controller-->
+        <scene sceneID="BcI-mI-NdD">
+            <objects>
+                <viewController id="j0P-VS-Lzh" customClass="MyCategoryContainerViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iRC-wn-VIF"/>
+                        <viewControllerLayoutGuide type="bottom" id="x3e-tj-y06"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1Em-y0-L1s">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3Y-vZ-0PO">
+                                <rect key="frame" x="0.0" y="64" width="600" height="46"/>
+                                <connections>
+                                    <segue destination="gdc-Nw-ixS" kind="embed" id="0vb-Za-48P"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLp-jg-4uj">
+                                <rect key="frame" x="0.0" y="118" width="600" height="438"/>
+                                <connections>
+                                    <segue destination="sKG-rB-O1k" kind="embed" id="qY7-5E-LyC"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="f3Y-vZ-0PO" firstAttribute="trailing" secondItem="TLp-jg-4uj" secondAttribute="trailing" id="KUe-Ze-T9T"/>
+                            <constraint firstItem="f3Y-vZ-0PO" firstAttribute="top" secondItem="iRC-wn-VIF" secondAttribute="bottom" id="KbM-np-O4a"/>
+                            <constraint firstItem="TLp-jg-4uj" firstAttribute="top" secondItem="f3Y-vZ-0PO" secondAttribute="bottom" constant="8" symbolic="YES" id="MU5-UO-fEM"/>
+                            <constraint firstItem="TLp-jg-4uj" firstAttribute="leading" secondItem="f3Y-vZ-0PO" secondAttribute="leading" id="TGh-wi-4UI"/>
+                            <constraint firstItem="TLp-jg-4uj" firstAttribute="bottom" secondItem="x3e-tj-y06" secondAttribute="top" id="TrG-mC-xoC"/>
+                            <constraint firstItem="TLp-jg-4uj" firstAttribute="leading" secondItem="1Em-y0-L1s" secondAttribute="leading" id="XIG-eT-2Dl"/>
+                            <constraint firstAttribute="trailing" secondItem="TLp-jg-4uj" secondAttribute="trailing" id="bsx-q1-DP3"/>
+                            <constraint firstItem="TLp-jg-4uj" firstAttribute="top" secondItem="1Em-y0-L1s" secondAttribute="top" constant="118" id="gSs-Ml-JxH"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="アイテム削除" id="Yzc-3X-zs1">
+                            <connections>
+                                <action selector="onTapEditListBarButtonItem:" destination="j0P-VS-Lzh" id="0ST-pg-0Sn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="es1-ka-w96"/>
+                        <barButtonItem title="アイテム追加" id="1Zn-Xf-Deh">
+                            <connections>
+                                <action selector="onTapAddCombinationItemBarButtonItem:" destination="j0P-VS-Lzh" id="l7p-Mm-2S4"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m2o-Vx-0k7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2281" y="3317"/>
         </scene>
         <!--フォルダ-->
         <scene sceneID="g7a-Io-jbs">
@@ -655,6 +718,160 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggn-j8-jMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="215" y="934"/>
+        </scene>
+        <!--My Category View Controller-->
+        <scene sceneID="g8T-jH-rzT">
+            <objects>
+                <viewController id="gdc-Nw-ixS" customClass="MyCategoryViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qA7-pT-Aj7"/>
+                        <viewControllerLayoutGuide type="bottom" id="I2I-ON-eTM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8m5-RQ-BWf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="カテゴリー名を入力してください。" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UFB-LP-AhJ">
+                                <rect key="frame" x="20" y="8" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gdc-Nw-ixS" id="CS3-DE-5gT"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UFB-LP-AhJ" firstAttribute="trailing" secondItem="8m5-RQ-BWf" secondAttribute="trailingMargin" id="59l-xX-h24"/>
+                            <constraint firstItem="UFB-LP-AhJ" firstAttribute="leading" secondItem="8m5-RQ-BWf" secondAttribute="leadingMargin" id="7dt-cU-JbB"/>
+                            <constraint firstItem="UFB-LP-AhJ" firstAttribute="top" secondItem="qA7-pT-Aj7" secondAttribute="bottom" constant="8" symbolic="YES" id="dd7-6Y-0sS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="categoryNameTextField" destination="UFB-LP-AhJ" id="a3K-iw-YkL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="POi-6u-4iT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2998" y="3080.5"/>
+        </scene>
+        <!--My Category Combination Item List Table View Controller-->
+        <scene sceneID="Mxj-Fl-TXV">
+            <objects>
+                <tableViewController id="sKG-rB-O1k" customClass="MyCategoryCombinationItemListTableViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aqO-aC-Uoa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyCategoryCombinationItemListTableViewCell" textLabel="P2I-0B-UET" detailTextLabel="nEc-Ez-3a6" style="IBUITableViewCellStyleSubtitle" id="jRG-Jh-3Za" customClass="MyCategoryCombinationItemListTableViewCell" customModule="MixAndMatch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jRG-Jh-3Za" id="uFj-cT-ivE">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P2I-0B-UET">
+                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nEc-Ez-3a6">
+                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="uvG-KC-yiZ" kind="show" id="DPi-Vc-V6a"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="sKG-rB-O1k" id="MwU-S6-QLQ"/>
+                            <outlet property="delegate" destination="sKG-rB-O1k" id="9lg-UP-K7g"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MYk-DB-8Zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2998" y="3401.5"/>
+        </scene>
+        <!--My Category Combination Item View Controller-->
+        <scene sceneID="sa0-il-LXA">
+            <objects>
+                <viewController id="uvG-KC-yiZ" customClass="MyCategoryCombinationItemViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c5Q-lf-Xyl"/>
+                        <viewControllerLayoutGuide type="bottom" id="T63-fP-9Vf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D2d-s5-ydL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hqN-8P-uqM">
+                                <rect key="frame" x="161" y="0.0" width="278" height="256"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XBp-7w-GL7">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="256" id="Knm-Vt-rpp"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFP-6H-RZs">
+                                        <rect key="frame" x="256" y="117" width="22" height="22"/>
+                                        <connections>
+                                            <action selector="touchUpInsideAddOrUpdateCombinationItemImageButton:" destination="uvG-KC-yiZ" eventType="touchUpInside" id="A7h-0s-wmX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XBp-7w-GL7" firstAttribute="top" secondItem="hqN-8P-uqM" secondAttribute="top" id="V1U-DM-zVy"/>
+                                </constraints>
+                            </stackView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="アイテム名を入力してください。" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mcs-Fb-NJM">
+                                <rect key="frame" x="20" y="264" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="uvG-KC-yiZ" id="Ydf-VC-HBa"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="メモを入力してください。" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BGU-r8-k41">
+                                <rect key="frame" x="20" y="302" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="uvG-KC-yiZ" id="dOL-I3-GEr"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Mcs-Fb-NJM" firstAttribute="top" secondItem="hqN-8P-uqM" secondAttribute="bottom" constant="8" symbolic="YES" id="5dZ-Dz-8xr"/>
+                            <constraint firstItem="BGU-r8-k41" firstAttribute="top" secondItem="Mcs-Fb-NJM" secondAttribute="bottom" constant="8" symbolic="YES" id="7JF-9y-zNS"/>
+                            <constraint firstItem="hqN-8P-uqM" firstAttribute="centerX" secondItem="Mcs-Fb-NJM" secondAttribute="centerX" id="CCx-yq-MHb"/>
+                            <constraint firstItem="Mcs-Fb-NJM" firstAttribute="trailing" secondItem="D2d-s5-ydL" secondAttribute="trailingMargin" id="VyK-zO-F5K"/>
+                            <constraint firstItem="BGU-r8-k41" firstAttribute="leading" secondItem="D2d-s5-ydL" secondAttribute="leadingMargin" id="adA-Tg-T9Y"/>
+                            <constraint firstItem="BGU-r8-k41" firstAttribute="leading" secondItem="Mcs-Fb-NJM" secondAttribute="leading" id="eV8-no-age"/>
+                            <constraint firstItem="BGU-r8-k41" firstAttribute="trailing" secondItem="Mcs-Fb-NJM" secondAttribute="trailing" id="hM6-gK-cuy"/>
+                            <constraint firstItem="hqN-8P-uqM" firstAttribute="top" secondItem="c5Q-lf-Xyl" secondAttribute="bottom" id="pxY-Te-4mp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="combinationItemImageView" destination="XBp-7w-GL7" id="IVf-ux-bTu"/>
+                        <outlet property="combinationItemMemoTextField" destination="BGU-r8-k41" id="Wcd-sV-u4V"/>
+                        <outlet property="combinationItemNameTextField" destination="Mcs-Fb-NJM" id="Z7N-NP-v9o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NJj-qk-iqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3690" y="3401"/>
         </scene>
     </scenes>
     <resources>

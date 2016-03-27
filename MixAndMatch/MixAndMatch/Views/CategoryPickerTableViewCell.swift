@@ -25,8 +25,9 @@ class CategoryPickerTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         // imageViewを正方形にする。ラベルの位置も合わせて補正する。
+        // autoresizingMaskの設定は不要（？）なので消す
         self.imageView?.clipsToBounds = true
-        self.imageView?.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.FlexibleHeight.rawValue | UIViewAutoresizing.FlexibleWidth.rawValue)
+//        self.imageView?.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.FlexibleHeight.rawValue | UIViewAutoresizing.FlexibleWidth.rawValue)
         self.imageView?.contentMode = .ScaleAspectFill
         
         let imageViewX = self.imageView?.frame.origin.x ?? 0
@@ -38,10 +39,10 @@ class CategoryPickerTableViewCell: UITableViewCell {
         )
         
         // 右端アクセサリーの幅を先に確保
+        // 編集モードと関連して変わるのは、contentViewのサイズ。セル自体のサイズではない。
         let margin = CGFloat(15.0)
-        let accesaryWidth = CGFloat(30.0)
         let textLabelX = imageViewX + (self.imageView?.frame.size.width ?? 0) + margin
-        let textLabelWidth = self.frame.size.width - (textLabelX + margin + accesaryWidth + margin)
+        let textLabelWidth = self.contentView.frame.size.width - (textLabelX + margin)
         self.textLabel?.frame = CGRectMake(
             textLabelX,
             self.textLabel?.frame.origin.y ?? 0,
