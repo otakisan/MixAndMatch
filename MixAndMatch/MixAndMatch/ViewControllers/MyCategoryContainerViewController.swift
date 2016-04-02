@@ -22,7 +22,7 @@ class MyCategoryContainerViewController: UIViewController, MyCategoryViewControl
     @IBAction func onTapEditListBarButtonItem(sender: UIBarButtonItem) {
         if let combiListVc = self.myCategoryCombinationItemListTableViewController {
             combiListVc.setEditing(!combiListVc.editing, animated: true)
-            sender.title = combiListVc.editing ? "完了" : "アイテム削除"
+            sender.title = combiListVc.editing ? "完了" : "編集"
         }
     }
     
