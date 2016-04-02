@@ -36,6 +36,10 @@ class CombinationListFilteredTableViewController: CombinationListBaseTableViewCo
         self.delegate?.didCancelCombinationViaFilteredList(combination)
     }
     
+    override func didSelectCombinationItem(combination: Combination, combinationItem: CombinationItem) {
+        self.delegate?.didSelectCombinationItemViaFilteredList(combination, combinationItem: combinationItem)
+    }
+    
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -112,5 +116,6 @@ protocol CombinationListFilteredTableViewControllerDelegate {
     func didSaveCombinationViaFilteredList(combination: Combination)
     func didCancelCombinationViaFilteredList(combination: Combination)
     func deleteActionViaFilteredList(combination: Combination)
+    func didSelectCombinationItemViaFilteredList(combination : Combination, combinationItem : CombinationItem)
     //func refreshViaFilteredList()
 }

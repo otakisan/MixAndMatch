@@ -384,6 +384,10 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         self.updateSearchResultsForSearchController(self.searchController)
     }
     
+    func didSelectCombinationItemViaFilteredList(combination : Combination, combinationItem : CombinationItem){
+        self.didSelectCombinationItem(combination, combinationItem: combinationItem)
+    }
+    
     func didSelectFolder(combinations: [Combination], folder: Folder) {
         combinations.forEach{ targetCombi in
             if let index = self.combinations.indexOf({targetCombi.uuid == $0.uuid} ){
