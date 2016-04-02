@@ -13,6 +13,7 @@ let defalutMaxCountOfLocalSaveFolder = 5
 let defalutMaxCountOfLocalSaveCombinationInFolder = 10
 let defalutMaxCountOfCombinationItemsInCategory = 10
 let defalutMaxCountOfCombinationItems = 5
+let defalutMaxCountOfCategory = 10
 
 let categoryCreatorTypeKey = "creatorType"
 let categoryCreatorTypeUser = "user"
@@ -24,4 +25,5 @@ class AppContext: NSObject {
     var maxCountOfLocalSaveCombinationInFolder = defalutMaxCountOfLocalSaveCombinationInFolder
     var maxCountOfCombinationItemsInCategory = defalutMaxCountOfCombinationItemsInCategory
     var maxCountOfCombinationItems = defalutMaxCountOfCombinationItems
+    var maxCountOfCategory = defalutMaxCountOfCategory
 }

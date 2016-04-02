@@ -133,12 +133,14 @@ class UnlimitedSaveLocallyPurchasedExtension : PurchasedExtension {
         AppContext.sharedInstance.maxCountOfLocalSaveCombinationInFolder = unlimitedCount
         AppContext.sharedInstance.maxCountOfCombinationItemsInCategory = unlimitedCount
         AppContext.sharedInstance.maxCountOfCombinationItems = unlimitedCount
+        AppContext.sharedInstance.maxCountOfCategory = unlimitedCount
     }
     override func detach() {
         AppContext.sharedInstance.maxCountOfLocalSaveFolder = defalutMaxCountOfLocalSaveFolder
         AppContext.sharedInstance.maxCountOfLocalSaveCombinationInFolder = defalutMaxCountOfLocalSaveCombinationInFolder
         AppContext.sharedInstance.maxCountOfCombinationItemsInCategory = defalutMaxCountOfCombinationItemsInCategory
         AppContext.sharedInstance.maxCountOfCombinationItems = defalutMaxCountOfCombinationItems
+        AppContext.sharedInstance.maxCountOfCategory = defalutMaxCountOfCategory
     }
 }
 

@@ -15,7 +15,7 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
     var myCategories : [Category] = []
 
     @IBAction func onTapCreateNewCategoryBarButtonItem(sender: UIBarButtonItem) {
-        self.showCreateNewCategoryPrompt()
+        self.showImagePickerViewControllerIfPossible()
     }
     
     override func viewDidLoad() {
@@ -148,8 +148,19 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
     
+    private func showImagePickerViewControllerIfPossible() {
+        
+        let maxCountOfCategory = AppContext.sharedInstance.maxCountOfCategory
+        let currentCountOfCategory = self.myCategories.count
+        if currentCountOfCategory < maxCountOfCategory {
+            self.showCreateNewCategoryPrompt()
+        } else {
+            self.showAlertMessage("カテゴリー数の上限に達しています。", message: "カテゴリーの数の上限[\(maxCountOfCategory)]に達しているため、新規で追加できません。", okHandler: nil)
+        }
+    }
+    
     var alertActionSave : UIAlertAction?
-    func showCreateNewCategoryPrompt() {
+    private func showCreateNewCategoryPrompt() {
         let alertController = UIAlertController(title: "新規カテゴリー", message: "このカテゴリーの名前を入力してください。", preferredStyle: .Alert)
         
         let alertActionSave = UIAlertAction(title: "保存", style: UIAlertActionStyle.Default) { (action) -> Void in
