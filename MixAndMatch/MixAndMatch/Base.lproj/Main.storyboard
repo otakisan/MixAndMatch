@@ -335,7 +335,7 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="アイテム削除" id="Yzc-3X-zs1">
+                        <barButtonItem title="編集" id="Yzc-3X-zs1">
                             <connections>
                                 <action selector="onTapEditListBarButtonItem:" destination="j0P-VS-Lzh" id="0ST-pg-0Sn"/>
                             </connections>

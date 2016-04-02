@@ -87,7 +87,9 @@ class CombinationListBaseTableViewController: UITableViewController, Combination
         detailViewController.folderUUID = self.folderUUID
         
         // Note: Should not be necessary but current iOS 8.0 bug requires it.
-        self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: false)
+        if let indexPath = tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        }
         
         let newNV = UINavigationController(rootViewController: detailViewController)
         newNV.toolbarHidden = false
@@ -155,5 +157,11 @@ class CombinationListBaseTableViewController: UITableViewController, Combination
     func didSelectCombinationItem(combination : Combination, combinationItem : CombinationItem){
         // 一旦保持するのも違うと思うし、senderだからselfなんだろうけど、一旦渡したいものを渡すようにする
         self.performSegueWithIdentifier("showCombinationItemViewControllerSegue", sender: combinationItem)
+    }
+    
+    func onTapBackgroundViewInCombinationItemsCollectionView(combination : Combination) {
+        if !self.editing {
+            self.pushCombinationEditTableViewControllerOnCellSelected(combination)            
+        }
     }
 }

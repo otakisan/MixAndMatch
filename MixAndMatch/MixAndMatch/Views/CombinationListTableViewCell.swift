@@ -33,6 +33,16 @@ class CombinationListTableViewCell: UITableViewCell {
         
         let nib = UINib(nibName: Constants.Nib.name, bundle: nil)
         self.combinationItemsCollectionView.registerNib(nib, forCellWithReuseIdentifier: Constants.TableViewCell.identifier)
+        
+        // セルのない領域をタップした場合に、編集画面を表示できるよう、
+        // タップイベントをハンドリングし、コールバックする
+        self.combinationItemsCollectionView.backgroundView = UIView()
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "onTapBackgroundViewInCombinationItemsCollectionView:")
+        self.combinationItemsCollectionView.backgroundView?.gestureRecognizers = [tapRecognizer]
+    }
+    
+    func onTapBackgroundViewInCombinationItemsCollectionView(sender : UIGestureRecognizer) {
+        self.delegate?.onTapBackgroundViewInCombinationItemsCollectionView(self.combination)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -86,4 +96,5 @@ extension CombinationListTableViewCell : UICollectionViewDelegate {
 
 protocol CombinationListTableViewCellDelegate {
     func didSelectCombinationItem(combination : Combination, combinationItem : CombinationItem)
+    func onTapBackgroundViewInCombinationItemsCollectionView(combination : Combination)
 }

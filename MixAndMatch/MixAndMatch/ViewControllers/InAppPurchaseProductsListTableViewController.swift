@@ -102,7 +102,7 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return section == 0 ? "ご購入の確認が取れたものには、右側に✔︎が表示されます。以前にご購入済で、✔︎が表示されていない場合には、右上の復元ボタンを押してください。" : nil
+        return section == 0 ? "一度ご購入いただきますと、ずっとお使いいただけます。ご購入の確認が取れたものには、右側に✔︎が表示されます。以前にご購入済で、✔︎が表示されていない場合には、右上の復元ボタンを押してください。" : nil
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
