@@ -184,7 +184,7 @@ class AppStoreObserver: NSObject, SKPaymentTransactionObserver {
     
     // Called when an error occur while restoring purchases. Notify the user about the error.
     func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError){
-        if error.code != SKErrorPaymentCancelled {
+        if error.code != SKErrorCode.PaymentCancelled.rawValue {
             self.status = .RestoredFailed;
             self.message = error.localizedDescription;
             NSNotificationCenter.defaultCenter().postNotificationName(IAPPurchaseNotification, object: self)
@@ -203,7 +203,7 @@ class AppStoreObserver: NSObject, SKPaymentTransactionObserver {
     func completeTransaction(transaction : SKPaymentTransaction, forStatus status : IAPPurchaseNotificationStatus) {
         self.status = status;
         //Do not send any notifications when the user cancels the purchase
-        if (transaction.error?.code != SKErrorPaymentCancelled) {
+        if (transaction.error?.code != SKErrorCode.PaymentCancelled.rawValue) {
             // Notify the user
             NSNotificationCenter.defaultCenter().postNotificationName(IAPPurchaseNotification, object: self)
         }

@@ -48,7 +48,7 @@ class FolderPickerTableViewController: FolderListBaseTableViewController {
     }
 
     private func configureRightBarButtonItem() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "onTapCancelBarButtonItem:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(FolderPickerTableViewController.onTapCancelBarButtonItem(_:)))
     }
     
     func onTapCancelBarButtonItem(sender: UIBarButtonItem) {

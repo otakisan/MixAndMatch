@@ -122,7 +122,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             // 新規の場合は、右に保存ボタンあり（IB上で定義）
             // 左ボタンはカスタムに差し替え、未保存時の処理を実施可能とする
             // 新規時のキャンセルボタン
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelOnCreateNewBarButtonItem:")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "戻る", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CombinationEditTableViewController.onTapCancelOnCreateNewBarButtonItem(_:)))
 
             // 空データを設定
             self.combination = Combination()
@@ -130,7 +130,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             // 更新の場合は、保存ボタンは不要
             self.navigationItem.rightBarButtonItem = nil
             // 更新時のキャンセルボタン
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: "onTapCancelBarButtonItem:")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CombinationEditTableViewController.onTapCancelBarButtonItem(_:)))
 
             // 存在する場合は、設定済みアイテムからカテゴリを洗い出す
             self.combination?.combinationItems.forEach{print("category : \($0.category)")}

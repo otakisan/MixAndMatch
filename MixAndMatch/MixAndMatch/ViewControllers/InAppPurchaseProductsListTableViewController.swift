@@ -46,12 +46,12 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         self.hideExtraFooterLine()
         
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "handleProductRequestNotification:",
+            selector: #selector(InAppPurchaseProductsListTableViewController.handleProductRequestNotification(_:)),
             name: AppStoreManager.sharedInstance.IAPProductRequestNotification,
             object: AppStoreManager.sharedInstance)
         
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "handlePurchasesNotification:",
+            selector: #selector(InAppPurchaseProductsListTableViewController.handlePurchasesNotification(_:)),
             name: AppStoreObserver.sharedInstance.IAPPurchaseNotification,
             object: AppStoreObserver.sharedInstance)
         

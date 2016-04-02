@@ -37,7 +37,7 @@ class CombinationListTableViewCell: UITableViewCell {
         // セルのない領域をタップした場合に、編集画面を表示できるよう、
         // タップイベントをハンドリングし、コールバックする
         self.combinationItemsCollectionView.backgroundView = UIView()
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "onTapBackgroundViewInCombinationItemsCollectionView:")
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CombinationListTableViewCell.onTapBackgroundViewInCombinationItemsCollectionView(_:)))
         self.combinationItemsCollectionView.backgroundView?.gestureRecognizers = [tapRecognizer]
     }
     

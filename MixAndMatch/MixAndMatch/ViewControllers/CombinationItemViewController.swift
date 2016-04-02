@@ -66,7 +66,7 @@ extension CombinationItemViewController : UIScrollViewDelegate {
         self.combinationItemScrollView.showsVerticalScrollIndicator = true
         self.combinationItemScrollView.zoomScale = 1.0
         
-        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:"doubleTap:")
+        let doubleTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(CombinationItemViewController.doubleTap(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         self.combinationItemImageView.userInteractionEnabled = true
         self.combinationItemImageView.addGestureRecognizer(doubleTapGesture)

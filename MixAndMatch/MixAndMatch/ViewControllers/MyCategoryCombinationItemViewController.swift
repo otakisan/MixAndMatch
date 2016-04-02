@@ -48,7 +48,8 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
         
         // 一旦、画像の高さは固定とする（高さ固定はAutoLayoutで実施）
         self.combinationItemImageView.clipsToBounds = true
-        self.combinationItemImageView.contentMode = .ScaleAspectFill
+        self.combinationItemImageView.contentMode = .ScaleAspectFit
+        self.combinationItemImageView.autoresizingMask = .None
         self.combinationItemImageView.image = ImageUtility.blankImage(CGSizeMake(256, 256))
         self.fetchAndSetImage(self.combinationItem?.localFileURL ?? "")
         
@@ -59,8 +60,8 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
         
         // 1.キーボード表示する際に送られるNSNotificationを受け取るための処理を追加
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "willHideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(MyCategoryCombinationItemViewController.willShowKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(MyCategoryCombinationItemViewController.willHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     // 2.送られてきたNSNotificationを処理して、キーボードの高さを取得する
@@ -92,18 +93,7 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
     }
     
     private func fetchAndSetImage(localIdentifier : String) {
-        let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([localIdentifier], options: nil)
-        var assetFetched : PHAsset?
-        fetchResult.enumerateObjectsUsingBlock { (asset, index, stop) -> Void in
-            assetFetched = asset as? PHAsset
-            stop.memory = true
-        }
-        
-        guard let assetFetchedUnwrapped = assetFetched else {
-            return
-        }
-        
-        PHImageManager.defaultManager().requestImageForAsset(assetFetchedUnwrapped, targetSize: CGSizeMake(self.combinationItemImageView.frame.size.width, self.combinationItemImageView.frame.size.height), contentMode: PHImageContentMode.AspectFit, options: nil) { (image, info) -> Void in
+        PhotosUtility.requestImageForLocalIdentifier(localIdentifier, targetSize: CGSize(width: self.combinationItemImageView.frame.size.width * 3, height: self.combinationItemImageView.frame.size.height * 3), contentMode: .AspectFit, options: nil) { (image, info) -> Void in
             if let itemImage = image, let resultIsDegradedKey = info?[PHImageResultIsDegradedKey] as? Int where resultIsDegradedKey == 0 {
                 self.combinationItemImageView.image = itemImage
             }

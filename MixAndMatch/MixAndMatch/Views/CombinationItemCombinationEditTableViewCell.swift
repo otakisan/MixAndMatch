@@ -22,7 +22,7 @@ class CombinationItemCombinationEditTableViewCell: UITableViewCell {
         // Initialization code
         
         // UILongPressGestureRecognizer宣言
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "cellLongPressed:")
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CombinationItemCombinationEditTableViewCell.cellLongPressed(_:)))
         
         // `UIGestureRecognizerDelegate`を設定するのをお忘れなく
         longPressRecognizer.delegate = self

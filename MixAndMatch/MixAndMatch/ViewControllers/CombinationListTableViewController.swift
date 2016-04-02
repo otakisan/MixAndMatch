@@ -49,7 +49,7 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        self.editButtonItem().action = "overrideToggleEditing:"
+        self.editButtonItem().action = #selector(CombinationListTableViewController.overrideToggleEditing(_:))
         self.initializeSearchController()
         
         self.loadCombinations()
@@ -82,8 +82,8 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     
     private func addEditingBarButtonItem() {
         // 最初はdisableで。選択したらenable。選択を外して選択数ゼロになったらdisable（メモアプリだと、全件対象で実行）
-        let moveBarButtonItem = UIBarButtonItem(title: "移動...", style: .Plain, target: self, action: "onTapMoveBarButtonItem:")
-        let deleteBarButtonItem = UIBarButtonItem(title: "削除", style: .Plain, target: self, action: "onTapDeleteBarButtonItem:")
+        let moveBarButtonItem = UIBarButtonItem(title: "移動...", style: .Plain, target: self, action: #selector(CombinationListTableViewController.onTapMoveBarButtonItem(_:)))
+        let deleteBarButtonItem = UIBarButtonItem(title: "削除", style: .Plain, target: self, action: #selector(CombinationListTableViewController.onTapDeleteBarButtonItem(_:)))
         moveBarButtonItem.enabled = false
         deleteBarButtonItem.enabled = false
         moveBarButtonItem.tag = ToolBarItemId.moveBarButtonItem
