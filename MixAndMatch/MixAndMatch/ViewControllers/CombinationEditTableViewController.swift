@@ -338,7 +338,7 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                         var existingCount = 0
                         for innerIndex in 0..<index {
                             if self.combination?.combinationItems.filter({$0.category?.uuid == self.categoriesForEdit[innerIndex].uuid}).count > 0 {
-                                existingCount++
+                                existingCount += 1
                             }
                         }
                         
@@ -510,12 +510,12 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         
         var album : PHAssetCollection?
         if albums.count > 0 {
-            album = albums[0] as! PHAssetCollection
+            album = albums[0] as? PHAssetCollection
         } else {
             if let _ = try? PHPhotoLibrary.sharedPhotoLibrary().performChangesAndWait({ () -> Void in
                 PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(albumName)
             }) {
-                album = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: options)[0] as! PHAssetCollection
+                album = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: options)[0] as? PHAssetCollection
             }
         }
         

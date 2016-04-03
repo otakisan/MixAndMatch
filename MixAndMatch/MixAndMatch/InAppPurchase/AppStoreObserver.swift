@@ -111,8 +111,6 @@ class AppStoreObserver: NSObject, SKPaymentTransactionObserver {
                 self.completeTransaction(transaction, forStatus: IAPPurchaseNotificationStatus.PurchaseFailed)
                 
                 break
-            default:
-                break
             }
         }
 
@@ -166,9 +164,6 @@ class AppStoreObserver: NSObject, SKPaymentTransactionObserver {
             case .Waiting:
                 print("Download Waiting")
                 SKPaymentQueue.defaultQueue().startDownloads([download])
-                break
-                
-            default:
                 break
             }
         }
