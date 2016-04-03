@@ -236,9 +236,11 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             if let removingIndex = self.combination?.combinationItems.indexOf({$0.category?.uuid == removed.uuid}) {
                 // Combinationg側から削除する
                 // CombinationItem側からdeleteすると、それ自体が削除されてしまう
-                let _ = try? self.combination?.realm?.write {
-                    self.combination?.combinationItems.removeAtIndex(removingIndex)
-                    self.combination?.updatedAt = NSDate()
+                if let realm = try? Realm() {
+                    let _ = try? realm.write {
+                        self.combination?.combinationItems.removeAtIndex(removingIndex)
+                        self.combination?.updatedAt = NSDate()
+                    }
                 }
             }
             tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
