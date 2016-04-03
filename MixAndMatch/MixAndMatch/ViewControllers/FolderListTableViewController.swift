@@ -32,6 +32,12 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.encourageCreateNewCategoryOrNewFolder()
+    }
 
     var alertActionSave : UIAlertAction?
     func showCreateNewFolderPrompt() {
@@ -250,5 +256,22 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         }
     }
     
+    private func encourageCreateNewCategoryOrNewFolder() {
+        if let realm = try? Realm() {
+            if realm.objects(Category).count == 0 {
+                self.encourageCreateNewCategory()
+            } else if self.folders.count == 0 {
+                self.encourageCreateNewFolder()
+            }
+        }
+    }
+    
+    private func encourageCreateNewCategory() {
+        self.showAlertMessage("カテゴリーを作りましょう！", message: "左下のボタンを押し、「Myカテゴリー」をタップしてください。", okHandler: nil)
+    }
+
+    private func encourageCreateNewFolder() {
+        self.showAlertMessage("フォルダを作りましょう！", message: "右下のボタンを押して、フォルダを作成してください。作成後、フォルダをタップし、組み合わせを作成します。", okHandler: nil)
+    }
 
 }

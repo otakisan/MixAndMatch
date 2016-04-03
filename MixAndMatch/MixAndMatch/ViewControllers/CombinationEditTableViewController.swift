@@ -145,6 +145,12 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.encourageAddNewCombinationItem()
+    }
+    
     func selectCombinationItems() {
         for index in 0..<self.categoriesForEdit.count {
             let indexPath = NSIndexPath(forRow: 0, inSection: index + 1)
@@ -624,6 +630,13 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
                 self.combination?.name = changedText
                 self.combination?.updatedAt = NSDate()
             })
+        }
+    }
+    
+    
+    private func encourageAddNewCombinationItem() {
+        if self.categoriesForEdit.count == 0 {
+            self.showAlertMessage("アイテムを追加しましょう！", message: "右下のボタンを押して、カテゴリーを選択してください。追加後、組み合わせに含めるアイテムをタップします。カテゴリーを左へスワイプすることで、そのカテゴリーにアイテムを追加することもできます。", okHandler: nil)
         }
     }
 }

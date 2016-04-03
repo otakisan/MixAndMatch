@@ -41,6 +41,11 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.encourageCreateNewCategory()
+    }
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -233,6 +238,11 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
         self.tableView.reloadData()
     }
 
+    private func encourageCreateNewCategory() {
+        if self.myCategories.count == 0 {
+            self.showAlertMessage("カテゴリーを作りましょう！", message: "右下のボタンを押して、カテゴリーを作成してください。作成後、カテゴリーをタップし、アイテムを追加します。", okHandler: nil)
+        }
+    }
     // ↑↑↑ カテゴリーピッカーとの共通化候補 ↑↑↑
 }
 

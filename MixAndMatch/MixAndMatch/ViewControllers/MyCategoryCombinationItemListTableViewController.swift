@@ -34,6 +34,12 @@ class MyCategoryCombinationItemListTableViewController: UITableViewController, U
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.encourageCreateNewCombinationItem()
+    }
+    
     override func didMoveToParentViewController(parent: UIViewController?) {
         if let myCategoryContainerVc = parent as? MyCategoryContainerViewController {
             self.myCategory = myCategoryContainerVc.myCategory
@@ -228,6 +234,12 @@ class MyCategoryCombinationItemListTableViewController: UITableViewController, U
                 
                 completion?(combinationItem: combinationItem)
             })
+        }
+    }
+
+    private func encourageCreateNewCombinationItem() {
+        if self.myCategory?.combinationItems.count == 0 {
+            self.showAlertMessage("アイテムを作りましょう！", message: "右下のボタンを押して、写真を選択し、アイテムを追加してください。作成後、アイテムをタップし、情報を編集します。", okHandler: nil)
         }
     }
 

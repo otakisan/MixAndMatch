@@ -55,6 +55,12 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         self.loadCombinations()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.encourageCreateNewCombination()
+    }
+    
     override func setEditing(editing: Bool, animated: Bool) {
         
         self.toolbarItems?.last?.enabled = !editing
@@ -397,4 +403,11 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
             }
         }
     }
+    
+    private func encourageCreateNewCombination() {
+        if self.combinations.count == 0 {
+            self.showAlertMessage("組み合わせを作りましょう！", message: "右下のボタンを押して、組み合わせを作成する画面を開いてください。", okHandler: nil)
+        }
+    }
+
 }
