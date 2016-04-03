@@ -15,7 +15,7 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
     var myCategories : [Category] = []
 
     @IBAction func onTapCreateNewCategoryBarButtonItem(sender: UIBarButtonItem) {
-        self.showImagePickerViewControllerIfPossible()
+        self.showCreateNewCategoryPromptIfPossible()
     }
     
     override func viewDidLoad() {
@@ -148,7 +148,7 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
     
-    private func showImagePickerViewControllerIfPossible() {
+    private func showCreateNewCategoryPromptIfPossible() {
         
         let maxCountOfCategory = AppContext.sharedInstance.maxCountOfCategory
         let currentCountOfCategory = self.myCategories.count

@@ -18,7 +18,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
     var delegate : CategoryPickerTableViewControllerDelegate?
     
     @IBAction func onTapCreateNewCategoryBarButtonItem(sender: UIBarButtonItem) {
-        self.showImagePickerViewControllerIfPossible()
+        self.showCreateNewCategoryPromptIfPossible()
     }
     
     @IBAction func onTapDoneBarButtonItem(sender: UIBarButtonItem) {
@@ -76,7 +76,7 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         return self.categories.count
     }
 
-    private func showImagePickerViewControllerIfPossible() {
+    private func showCreateNewCategoryPromptIfPossible() {
         
         let maxCountOfCategory = AppContext.sharedInstance.maxCountOfCategory
         let currentCountOfCategory = self.categories.count

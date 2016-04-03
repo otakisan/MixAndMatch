@@ -144,7 +144,7 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
         let imageViewController = UIImagePickerController()
         imageViewController.sourceType = sourceType
         imageViewController.delegate = self
-        imageViewController.allowsEditing = true
+        imageViewController.allowsEditing = false
         self.presentViewController(imageViewController, animated: true, completion: nil)
         
         return imageViewController
