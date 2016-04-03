@@ -635,10 +635,11 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         }
     }
     
-    
     private func encourageAddNewCombinationItem() {
-        if self.categoriesForEdit.count == 0 {
-            self.showAlertMessage("アイテムを追加しましょう！", message: "右下のボタンを押して、カテゴリーを選択してください。追加後、組み合わせに含めるアイテムをタップします。カテゴリーを左へスワイプすることで、そのカテゴリーにアイテムを追加することもできます。", okHandler: nil)
+        if let realm = try? Realm() {
+            if self.categoriesForEdit.count == 0 && realm.objects(Combination).filter("combinationItems.@count > 0").count == 0 {
+                self.showAlertMessage("アイテムを追加しましょう！", message: "右下のボタンを押して、カテゴリーを選択してください。追加後、組み合わせに含めるアイテムをタップします。カテゴリーを左へスワイプすることで、そのカテゴリーにアイテムを追加することもできます。", okHandler: nil)
+            }
         }
     }
 }

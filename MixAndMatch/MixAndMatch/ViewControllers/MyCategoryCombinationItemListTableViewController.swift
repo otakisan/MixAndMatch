@@ -238,8 +238,10 @@ class MyCategoryCombinationItemListTableViewController: UITableViewController, U
     }
 
     private func encourageCreateNewCombinationItem() {
-        if self.myCategory?.combinationItems.count == 0 {
-            self.showAlertMessage("アイテムを作りましょう！", message: "右下のボタンを押して、写真を選択し、アイテムを追加してください。作成後、アイテムをタップし、情報を編集します。", okHandler: nil)
+        if let realm = try? Realm() {
+            if realm.objects(CombinationItem).filter("category != nil").count == 0 {
+                self.showAlertMessage("アイテムを作りましょう！", message: "右下のボタンを押して、写真を選択し、アイテムを追加してください。作成後、アイテムをタップし、情報を編集します。", okHandler: nil)
+            }
         }
     }
 
