@@ -28,4 +28,10 @@ class PhotosUtility {
             resultHandler(image, info)
         }
     }
+        
+    static func showPhotosPrivacySettings() {
+        if let url = NSURL(string:"prefs:root=Privacy&path=PHOTOS") {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
 }

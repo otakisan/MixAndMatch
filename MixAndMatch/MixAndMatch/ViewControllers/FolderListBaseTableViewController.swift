@@ -31,6 +31,8 @@ class FolderListBaseTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.promotePhotosAccesibility()
+        
         self.refreshData()
     }
     
