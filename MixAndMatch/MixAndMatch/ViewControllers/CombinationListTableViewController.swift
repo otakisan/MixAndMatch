@@ -219,6 +219,20 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
             let namePredicate = NSComparisonPredicate(leftExpression: lhs, rightExpression: rhs, modifier: .DirectPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
             searchItemsPredicate.append(namePredicate)
             
+            // 組み合わせアイテム - 名称
+            let lhsItemName = NSExpression(forKeyPath: "combinationItems.name")
+            let rhsItemName = NSExpression(forConstantValue: searchString)
+            
+            let itemNamePredicate = NSComparisonPredicate(leftExpression: lhsItemName, rightExpression: rhsItemName, modifier: .AnyPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+            searchItemsPredicate.append(itemNamePredicate)
+            
+            // 組み合わせアイテム - メモ
+            let lhsItemMemo = NSExpression(forKeyPath: "combinationItems.memo")
+            let rhsItemMemo = NSExpression(forConstantValue: searchString)
+            
+            let itemMemoPredicate = NSComparisonPredicate(leftExpression: lhsItemMemo, rightExpression: rhsItemMemo, modifier: .AnyPredicateModifier, type: .ContainsPredicateOperatorType, options: .CaseInsensitivePredicateOption)
+            searchItemsPredicate.append(itemMemoPredicate)
+            
             // Add this OR predicate to our master AND predicate.
             let orMatchPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: searchItemsPredicate)
             andMatchPredicates.append(orMatchPredicates)
