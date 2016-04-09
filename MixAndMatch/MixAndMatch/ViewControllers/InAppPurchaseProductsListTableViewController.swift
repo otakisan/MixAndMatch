@@ -84,7 +84,9 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         // Configure the cell...
         if self.availableProducts.count > indexPath.section {
             let skProduct : SKProduct = self.availableProducts[indexPath.section].elements[indexPath.row]
-            cell.textLabel?.text = "\(skProduct.localizedTitle) (\(skProduct.priceLocale.objectForKey(NSLocaleCurrencySymbol) as? String ?? "")\(skProduct.price))"
+            // 購入確認済みの場合、価格を表示しない
+            let priceText = InAppPurchaseProductManager.sharedInstance.purchased(skProduct.productIdentifier) ? "" :" (\(skProduct.priceLocale.objectForKey(NSLocaleCurrencySymbol) as? String ?? "")\(skProduct.price))"
+            cell.textLabel?.text = "\(skProduct.localizedTitle)\(priceText)"
             cell.detailTextLabel?.text = skProduct.localizedDescription
             cell.accessoryType = InAppPurchaseProductManager.sharedInstance.purchased(skProduct.productIdentifier) ? .Checkmark : .None
         } else if (self.availableProducts.count + self.purchasedProducts.count) > indexPath.section {
