@@ -438,11 +438,11 @@
                         <viewControllerLayoutGuide type="bottom" id="k4S-iv-JR3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SzA-0d-CJp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hmQ-wC-bWQ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="49R-bA-qom">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -775,14 +775,14 @@
                                             <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nEc-Ez-3a6">
                                             <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -817,7 +817,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="hqN-8P-uqM">
                                 <rect key="frame" x="161" y="0.0" width="279" height="256"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XBp-7w-GL7">
+                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XBp-7w-GL7">
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="256" id="Knm-Vt-rpp"/>
@@ -868,6 +868,7 @@
                         <outlet property="combinationItemImageView" destination="XBp-7w-GL7" id="IVf-ux-bTu"/>
                         <outlet property="combinationItemMemoTextField" destination="BGU-r8-k41" id="Wcd-sV-u4V"/>
                         <outlet property="combinationItemNameTextField" destination="Mcs-Fb-NJM" id="Z7N-NP-v9o"/>
+                        <segue destination="57F-c7-e6g" kind="show" identifier="showCombinationItemViewControllerFromMyCategoryCombinationItemViewController" id="8yq-lw-Szc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJj-qk-iqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -878,4 +879,7 @@
     <resources>
         <image name="checkmark_blue" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="8yq-lw-Szc"/>
+    </inferredMetricsTieBreakers>
 </document>

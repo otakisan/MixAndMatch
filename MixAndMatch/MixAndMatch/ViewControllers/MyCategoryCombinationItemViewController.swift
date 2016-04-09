@@ -52,6 +52,8 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
         self.combinationItemImageView.autoresizingMask = .None
         self.combinationItemImageView.image = ImageUtility.blankImage(CGSizeMake(256, 256))
         self.fetchAndSetImage(self.combinationItem?.localFileURL ?? "")
+        // 画像の詳細を確認する画面へ遷移できるよう、画像へのタップをハンドリングする
+        self.combinationItemImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onTapCombinationItemImageView(_:))))
         
         self.combinationItemNameTextField.tag = TextFieldTag.Name.rawValue
         self.combinationItemNameTextField.text = self.combinationItem?.name
@@ -62,6 +64,10 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(MyCategoryCombinationItemViewController.willShowKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(MyCategoryCombinationItemViewController.willHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func onTapCombinationItemImageView(recoginzer : UITapGestureRecognizer) {
+        self.performSegueWithIdentifier("showCombinationItemViewControllerFromMyCategoryCombinationItemViewController", sender: self)
     }
     
     // 2.送られてきたNSNotificationを処理して、キーボードの高さを取得する
@@ -99,15 +105,18 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
             }
         }
     }
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if let vc = segue.destinationViewController as? CombinationItemViewController {
+            vc.combinationItem = self.combinationItem
+        }
     }
-    */
+    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         return textField.endEditing(false)
