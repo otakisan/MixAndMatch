@@ -31,8 +31,14 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         if currentCountOfCombinationsInFolder < maxCountOfLocalSaveCombinationInFolder {
             self.performSegueWithIdentifier("showCombinationEditTableViewControllerSegue", sender: self)
         } else {
-            self.showAlertMessage("保存数の上限に達しています。", message: "フォルダ内に保存できる数の上限[\(maxCountOfLocalSaveCombinationInFolder)]に達しているため、新規で追加できません。", okHandler: nil)
+            self.showAlertMaxLimitSaveCount(maxCountOfLocalSaveCombinationInFolder)
         }
+    }
+    
+    private func showAlertMaxLimitSaveCount(maxCountOfLocalSaveCombinationInFolder : Int) {
+        self.showOkCancelAlertMessage("保存数の上限に達しています。", message: "フォルダ内に保存できる数の上限[\(maxCountOfLocalSaveCombinationInFolder)]に達しているため、新規で追加できません。", okCaption: "機能追加する", cancelCaption: "キャンセル", okHandler: {action in
+            self.showViewControllerByStoryboardId(AppContext.sharedInstance.storyboardIdInAppPurchaseProductsListTableViewController, storyboardName: AppContext.sharedInstance.storyboardName, initialize: nil)
+            }, cancelHandler: nil)
     }
     
     // Search controller to help us with filtering.
@@ -305,11 +311,16 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         moveAction.backgroundColor = .grayColor()
 
         let copyAction = UITableViewRowAction(style: .Default, title: "複製") { (action, indexPath) -> Void in
-            self.tableView.setEditing(false, animated: true)
-            self.copyCombination(self.combinations[indexPath.row], completionHandler: {
-                self.loadCombinations()
-                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-            })
+            let maxCountOfLocalSaveCombinationInFolder = AppContext.sharedInstance.maxCountOfLocalSaveCombinationInFolder
+            if self.combinations.count < maxCountOfLocalSaveCombinationInFolder {
+                self.tableView.setEditing(false, animated: true)
+                self.copyCombination(self.combinations[indexPath.row], completionHandler: {
+                    self.loadCombinations()
+                    self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                })
+            } else {
+                self.showAlertMaxLimitSaveCount(maxCountOfLocalSaveCombinationInFolder)
+            }
         }
         copyAction.backgroundColor = UIColor.lightGrayColor()
 
@@ -409,12 +420,24 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     }
     
     func didSelectFolder(combinations: [Combination], folder: Folder) {
-        combinations.forEach{ targetCombi in
-            if let index = self.combinations.indexOf({targetCombi.uuid == $0.uuid} ){
-                let removed = self.combinations.removeAtIndex(index)
-                let _ = try? removed.realm?.write{ removed.folder = folder }
-                self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+        // 次回のキューで実行しないとワーニングが表示されない
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.moveFolder(folder, targetCombinations: combinations)
+        }
+    }
+    
+    private func moveFolder(toFolder : Folder, targetCombinations : [Combination]) {
+        let maxCountOfLocalSaveCombinationInFolder = AppContext.sharedInstance.maxCountOfLocalSaveCombinationInFolder
+        if toFolder.combinations.count < maxCountOfLocalSaveCombinationInFolder {
+            targetCombinations.forEach{ targetCombi in
+                if let index = self.combinations.indexOf({targetCombi.uuid == $0.uuid} ){
+                    let removed = self.combinations.removeAtIndex(index)
+                    let _ = try? removed.realm?.write{ removed.folder = toFolder }
+                    self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+                }
             }
+        } else {
+            self.showAlertMaxLimitSaveCount(maxCountOfLocalSaveCombinationInFolder)
         }
     }
     

@@ -16,6 +16,13 @@ extension UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    func showOkCancelAlertMessage(title : String?, message : String?, okCaption : String, cancelCaption : String, okHandler: ((UIAlertAction) -> Void)?, cancelHandler: ((UIAlertAction) -> Void)?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: okCaption, style: .Default, handler: okHandler))
+        alert.addAction(UIAlertAction(title: cancelCaption, style: .Cancel, handler: cancelHandler))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func showOkCancelAlertMessage(title : String?, message : String?, okHandler: ((UIAlertAction) -> Void)?, cancelHandler: ((UIAlertAction) -> Void)?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: okHandler))
@@ -59,6 +66,32 @@ extension UIViewController {
         }
     }
 
+    func showViewControllerByStoryboardId(viewControllerIdentifier: String, storyboardName : String, initialize : ((UIViewController) -> Void)?) -> UIViewController {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
+        let newNV = UINavigationController(rootViewController: viewController)
+        initialize?(viewController)
+        
+        self.presentViewController(newNV, animated: true, completion: nil)
+        
+        return viewController
+    }
+    
+    func addCloseBarButtonItemIfRootViewControllerOfNavigationController() {
+        if self.navigationController?.viewControllers.first == self {
+            let closeBarButtonItem = UIBarButtonItem(title: "閉じる", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(self.onTapCloseBarButtonItemWhenFirstViewControllerOfNavigationController(_:)))
+            if var leftBarButtonItems = self.navigationItem.leftBarButtonItems {
+                leftBarButtonItems.append(closeBarButtonItem)
+            }else{
+                self.navigationItem.leftBarButtonItem = closeBarButtonItem
+            }
+        }
+    }
+    
+    func onTapCloseBarButtonItemWhenFirstViewControllerOfNavigationController(barButtonItem : UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 extension UITableViewController {

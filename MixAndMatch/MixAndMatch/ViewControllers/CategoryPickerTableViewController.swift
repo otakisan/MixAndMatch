@@ -83,7 +83,9 @@ class CategoryPickerTableViewController: UITableViewController, UITextFieldDeleg
         if currentCountOfCategory < maxCountOfCategory {
             self.showCreateNewCategoryPrompt()
         } else {
-            self.showAlertMessage("カテゴリー数の上限に達しています。", message: "カテゴリーの数の上限[\(maxCountOfCategory)]に達しているため、新規で追加できません。", okHandler: nil)
+            self.showOkCancelAlertMessage("カテゴリー数の上限に達しています。", message: "カテゴリーの数の上限[\(maxCountOfCategory)]に達しているため、新規で追加できません。", okCaption: "機能追加する", cancelCaption: "キャンセル", okHandler: {action in
+                self.showViewControllerByStoryboardId(AppContext.sharedInstance.storyboardIdInAppPurchaseProductsListTableViewController, storyboardName: AppContext.sharedInstance.storyboardName, initialize: nil)
+                }, cancelHandler: nil)
         }
     }
 

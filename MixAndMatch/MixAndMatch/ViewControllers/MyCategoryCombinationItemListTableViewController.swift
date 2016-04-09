@@ -184,7 +184,9 @@ class MyCategoryCombinationItemListTableViewController: UITableViewController, U
         if currentCountOfCombinationItemsInCategory < maxCountOfCombinationItemsInCategory {
             self.showImagePickerViewController(.PhotoLibrary)
         } else {
-            self.showAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。", okHandler: nil)
+            self.showOkCancelAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。", okCaption: "機能追加する", cancelCaption: "キャンセル", okHandler: {action in
+                self.showViewControllerByStoryboardId(AppContext.sharedInstance.storyboardIdInAppPurchaseProductsListTableViewController, storyboardName: AppContext.sharedInstance.storyboardName, initialize: nil)
+                }, cancelHandler: nil)
         }
     }
 

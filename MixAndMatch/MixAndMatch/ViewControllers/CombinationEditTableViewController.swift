@@ -54,7 +54,9 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
         if currentCountOfCombinationItems < maxCountOfCombinationItems {
             self.performSegueWithIdentifier("showCategoryPickerTableViewControllerSegue", sender: self)
         } else {
-            self.showAlertMessage("組み合わせアイテムの上限に達しています。", message: "１つの組み合わせ内に保存できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItems)]に達しているため、新規で追加できません。", okHandler: nil)
+            self.showOkCancelAlertMessage("組み合わせアイテムの上限に達しています。", message: "１つの組み合わせ内に保存できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItems)]に達しているため、新規で追加できません。", okCaption: "機能追加する", cancelCaption: "キャンセル", okHandler: {action in
+                self.showViewControllerByStoryboardId(AppContext.sharedInstance.storyboardIdInAppPurchaseProductsListTableViewController, storyboardName: AppContext.sharedInstance.storyboardName, initialize: nil)
+                }, cancelHandler: nil)
         }
     }
 
@@ -261,7 +263,9 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
             self.targetCategoryNameForAddItem = self.categoriesForEdit[indexPath.section - 1].name
             self.tableView.setEditing(false, animated: true)
         } else {
-            self.showAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。", okHandler: nil)
+            self.showOkCancelAlertMessage("カテゴリー内の組み合わせアイテムの上限に達しています。", message: "カテゴリーに追加できる、組み合わせアイテムの数の上限[\(maxCountOfCombinationItemsInCategory)]に達しているため、新規で追加できません。", okCaption: "機能追加する", cancelCaption: "キャンセル", okHandler: {action in
+                self.showViewControllerByStoryboardId(AppContext.sharedInstance.storyboardIdInAppPurchaseProductsListTableViewController, storyboardName: AppContext.sharedInstance.storyboardName, initialize: nil)
+                }, cancelHandler: nil)
         }
     }
 

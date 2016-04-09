@@ -56,6 +56,8 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
             object: AppStoreObserver.sharedInstance)
         
         self.fetchProductInformation()
+        
+        self.addCloseBarButtonItemIfRootViewControllerOfNavigationController()
     }
 
     override func didReceiveMemoryWarning() {

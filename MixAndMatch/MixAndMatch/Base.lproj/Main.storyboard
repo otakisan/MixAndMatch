@@ -145,7 +145,7 @@
         <!--機能追加-->
         <scene sceneID="6nR-6T-t6N">
             <objects>
-                <tableViewController id="X7j-uW-7CS" customClass="InAppPurchaseProductsListTableViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="InAppPurchaseProductsListTableViewController" id="X7j-uW-7CS" customClass="InAppPurchaseProductsListTableViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="nQW-Dh-wlG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

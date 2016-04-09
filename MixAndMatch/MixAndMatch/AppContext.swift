@@ -26,4 +26,7 @@ class AppContext: NSObject {
     var maxCountOfCombinationItemsInCategory = defalutMaxCountOfCombinationItemsInCategory
     var maxCountOfCombinationItems = defalutMaxCountOfCombinationItems
     var maxCountOfCategory = defalutMaxCountOfCategory
+    
+    let storyboardName = "Main"
+    let storyboardIdInAppPurchaseProductsListTableViewController = "InAppPurchaseProductsListTableViewController"
 }
