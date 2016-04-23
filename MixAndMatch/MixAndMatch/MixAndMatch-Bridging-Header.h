@@ -20,3 +20,5 @@ PKCS7_DIGEST *pkcs7_d_digest(PKCS7 *ptr);
 PKCS7_ENCRYPT *pkcs7_d_encrypted(PKCS7 *ptr);
 ASN1_TYPE *pkcs7_d_other(PKCS7 *ptr);
 PKCS7* pkcs7_signed_contents(PKCS7_SIGNED *ptr);
+
+#import <Google/Analytics.h>

@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Attach an observer to the payment queue        
         SKPaymentQueue.defaultQueue().addTransactionObserver(AppStoreObserver.sharedInstance)
+        
+        self.configureGAI()
 
         return true
     }
@@ -89,6 +91,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Realmファイルを開こうとしたときスキーマバージョンが異なれば、
         // 自動的にマイグレーションが実行されます
         //let realm = try! Realm()
+    }
+    
+    private func configureGAI() {
+        // Configure tracker from GoogleService-Info.plist.
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        // Optional: configure GAI options.
+        let gai = GAI.sharedInstance()
+        gai.trackUncaughtExceptions = true  // report uncaught exceptions
+        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
     }
 }
 

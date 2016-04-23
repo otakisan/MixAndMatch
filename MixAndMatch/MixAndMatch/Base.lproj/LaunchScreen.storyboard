@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="width" constant="279" id="isg-ti-mnq"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="組み合わせメモ">
+                                    <fragment content="くみたん">
                                         <attributes>
                                             <color key="NSColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <font key="NSFont" size="24" name="HiraKakuProN-W6"/>

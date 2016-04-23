@@ -36,7 +36,15 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.initAnalysisTracker()
+
         self.encourageCreateNewCategoryOrNewFolder()
+    }
+    
+    private func initAnalysisTracker() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "フォルダ一覧")
+        tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
     }
 
     var alertActionSave : UIAlertAction?
