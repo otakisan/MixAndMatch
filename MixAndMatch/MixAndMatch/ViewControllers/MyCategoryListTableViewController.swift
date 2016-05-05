@@ -44,6 +44,8 @@ class MyCategoryListTableViewController: UITableViewController, UITextFieldDeleg
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.initAnalysisTracker("マイカテゴリ一覧（MyCategoryListTableViewController）")
+
         self.encourageCreateNewCategory()
     }
     // MARK: - Table view data source

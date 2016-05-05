@@ -28,6 +28,12 @@ class CombinationListFilteredTableViewController: CombinationListBaseTableViewCo
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.initAnalysisTracker("フィルタ済み組み合わせ一覧（CombinationListFilteredTableViewController）")
+    }
+    
     override func didSaveCombination(combination: Combination) {
         self.delegate?.didSaveCombinationViaFilteredList(combination)
     }

@@ -16,6 +16,8 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
         static let deleteBarButtonItem = 102
     }
     
+    var sourceViewController : UIViewController?
+    
     @IBAction func onTapNewCombinationBarButtonItem(sender: UIBarButtonItem) {
         self.showCombinationEditViewControllerIfPossible()
     }
@@ -64,9 +66,28 @@ class CombinationListTableViewController: CombinationListBaseTableViewController
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.initAnalysisTracker("組み合わせ一覧（CombinationListTableViewController）")
+
         self.encourageCreateNewCombination()
     }
-    
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        (self.sourceViewController as? FolderListTableViewController)?.isShowAd = true
+    }
+
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        super.didMoveToParentViewController(parent)
+        
+        // 自分自身が最後尾なので、一階層前は、最後尾のひとつ前
+        if let count = parent?.childViewControllers.count where count > 1 {
+            self.sourceViewController = parent?.childViewControllers[count - 2]
+        } else {
+            self.sourceViewController = nil
+        }
+    }
+
     override func setEditing(editing: Bool, animated: Bool) {
         
         self.toolbarItems?.last?.enabled = !editing

@@ -25,6 +25,12 @@ class MyCategoryViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.initAnalysisTracker("マイカテゴリ（MyCategoryViewController）")
+    }
+
     override func didMoveToParentViewController(parent: UIViewController?) {
         if let myCategoryContainerVc = parent as? MyCategoryContainerViewController {
             self.myCategory = myCategoryContainerVc.myCategory

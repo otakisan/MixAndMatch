@@ -37,6 +37,8 @@ class MyCategoryCombinationItemListTableViewController: UITableViewController, U
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.initAnalysisTracker("マイカテゴリ内の組み合わせアイテム一覧（MyCategoryCombinationItemListTableViewController）")
+
         self.encourageCreateNewCombinationItem()
     }
     

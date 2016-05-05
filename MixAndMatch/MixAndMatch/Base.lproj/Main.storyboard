@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bZJ-r4-gOA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bZJ-r4-gOA">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -923,6 +923,10 @@
         <scene sceneID="j5T-SQ-snu">
             <objects>
                 <viewController id="K9r-w5-v0O" customClass="AdBannerViewController" customModule="MixAndMatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ywx-X4-Aca"/>
+                        <viewControllerLayoutGuide type="bottom" id="r53-HY-j2a"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NDK-g8-OZo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

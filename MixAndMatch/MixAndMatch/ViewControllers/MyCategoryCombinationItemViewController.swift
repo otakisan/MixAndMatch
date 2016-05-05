@@ -39,6 +39,12 @@ class MyCategoryCombinationItemViewController: UIViewController, UITextFieldDele
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.initAnalysisTracker("マイカテゴリ内の組み合わせアイテム（MyCategoryCombinationItemViewController）")
+    }
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

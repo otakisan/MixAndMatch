@@ -65,6 +65,12 @@ class InAppPurchaseProductsListTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.initAnalysisTracker("アプリ内課金一覧（InAppPurchaseProductsListTableViewController）")
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

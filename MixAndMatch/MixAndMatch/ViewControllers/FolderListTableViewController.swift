@@ -8,9 +8,13 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
 class FolderListTableViewController: FolderListBaseTableViewController, UITextFieldDelegate {
 
+    var isShowAd = false
+    var interstitial : GADInterstitial?
+    
     @IBAction func onTouchNewFolderBarButtonItem(sender: UIBarButtonItem) {
         self.showCreateNewFolderPromptIfPossible()
     }
@@ -26,6 +30,8 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         
         // 編集時の選択を可能とする
         self.tableView.allowsSelectionDuringEditing = true
+        
+        self.loadAd()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,15 +42,11 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.initAnalysisTracker()
+        self.initAnalysisTracker("フォルダ一覧（FolderListTableViewController）")
 
         self.encourageCreateNewCategoryOrNewFolder()
-    }
-    
-    private func initAnalysisTracker() {
-        let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "フォルダ一覧")
-        tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
+        
+        self.showAd()
     }
 
     var alertActionSave : UIAlertAction?
@@ -284,4 +286,40 @@ class FolderListTableViewController: FolderListBaseTableViewController, UITextFi
         self.showAlertMessage("フォルダを作りましょう！", message: "右下のボタンを押して、フォルダを作成してください。作成後、フォルダをタップし、組み合わせを作成します。", okHandler: nil)
     }
 
+    @objc private func reloadAd() {
+        self.loadAd()
+    }
+    
+    private func loadAd() {
+        self.interstitial = GADInterstitial(adUnitID: "ca-app-pub-3119454746977531/3693326809")
+        let gadRequest = GADRequest()
+        self.interstitial?.loadRequest(gadRequest)
+        self.interstitial?.delegate = self
+    }
+    
+    private func showAd() {
+        if self.isShowAd {
+            if self.interstitial!.hasBeenUsed {
+                self.loadAd()
+            } else if self.interstitial!.isReady {
+                self.interstitial?.presentFromRootViewController(self)
+            }
+        }
+    }
+
+}
+
+extension FolderListTableViewController : GADInterstitialDelegate {
+    func interstitialDidDismissScreen(ad: GADInterstitial!){
+        self.loadAd()
+    }
+    
+    func interstitialWillPresentScreen(ad: GADInterstitial!) {
+        self.isShowAd = false
+    }
+    
+    func interstitial(ad: GADInterstitial!, didFailToReceiveAdWithError error: GADRequestError!){
+        print(error)
+        NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(FolderListTableViewController.reloadAd), userInfo: nil, repeats: true)
+    }
 }

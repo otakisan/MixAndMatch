@@ -150,6 +150,8 @@ class CombinationEditTableViewController: UITableViewController, CombinationItem
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.initAnalysisTracker("組み合わせ編集（CombinationEditTableViewController）")
+
         self.encourageAddNewCombinationItem()
     }
     

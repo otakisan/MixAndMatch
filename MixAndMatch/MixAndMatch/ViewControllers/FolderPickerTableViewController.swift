@@ -43,6 +43,12 @@ class FolderPickerTableViewController: FolderListBaseTableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.initAnalysisTracker("フォルダピッカー（FolderPickerTableViewController）")
+    }
+    
     private func addBarButtonItemToNavigationItem() {
         self.configureRightBarButtonItem()
     }
